@@ -1,0 +1,53 @@
+name: Discord Branch Notification
+
+on:
+  create:
+
+jobs:
+  notify-discord-branch:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build branch embed and send it
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          REF: ${{ github.ref }}                         # refs/heads/feature/xyz
+          REF_TYPE: ${{ github.event.ref_type }}         # branch / tag
+          REF_NAME: ${{ github.event.ref }}              # nom simple du ref
+          CREATOR_LOGIN: ${{ github.actor }}
+        run: |
+          # On ne notifie que les branches, pas les tags
+          if [ "$REF_TYPE" != "branch" ]; then
+            echo "Not a branch, skipping notification."
+            exit 0
+          fi
+
+          ISO_TIMESTAMP="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          UNIX_TS="$(date -u +%s)"
+
+          jq -n \
+            --arg repo "$REPO" \
+            --arg branch "$REF_NAME" \
+            --arg creator "$CREATOR_LOGIN" \
+            --arg timestamp "$ISO_TIMESTAMP" \
+            --arg unix_ts "$UNIX_TS" \
+          '{
+            embeds: [
+              {
+                title: "Nouvelle branche créée",
+                description: ("Branche `" + $branch + "` créée par **" + $creator + "**."),
+                timestamp: $timestamp,
+                footer: { text: ("<t:" + $unix_ts + ":R>") },
+                fields: [
+                  { name: "Dépôt", value: $repo, inline: true },
+                  { name: "Branche", value: $branch, inline: true },
+                  { name: "Créateur", value: $creator, inline: true }
+                ]
+              }
+            ]
+          }' > payload.json
+
+          curl -X POST "$DISCORD_WEBHOOK" \
+               -H "Content-Type: application/json" \
+               -d @payload.json
