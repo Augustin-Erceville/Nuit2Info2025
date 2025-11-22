@@ -1,0 +1,76 @@
+name: Discord Pull Request Notification
+
+on:
+  pull_request:
+    types: [opened, reopened, closed]
+
+jobs:
+  notify-discord-pr:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Build PR embed and send it
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_STATE: ${{ github.event.pull_request.state }}          # open / closed
+          PR_MERGED: ${{ github.event.pull_request.merged }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_AUTHOR_LOGIN: ${{ github.event.pull_request.user.login }}
+          PR_AUTHOR_AVATAR: ${{ github.event.pull_request.user.avatar_url }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+        run: |
+          STATUS="ouverte"
+          if [ "$PR_STATE" = "closed" ]; then
+            if [ "$PR_MERGED" = "true" ]; then
+              STATUS="fusionnée"
+            else
+              STATUS="fermée"
+            fi
+          fi
+
+          ISO_TIMESTAMP="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
+          UNIX_TS="$(date -u +%s)"
+
+          jq -n \
+            --arg repo "$REPO" \
+            --arg pr_number "#$PR_NUMBER" \
+            --arg pr_title "$PR_TITLE" \
+            --arg pr_url "$PR_URL" \
+            --arg status "$STATUS" \
+            --arg author_login "$PR_AUTHOR_LOGIN" \
+            --arg author_avatar "$PR_AUTHOR_AVATAR" \
+            --arg base_branch "$BASE_BRANCH" \
+            --arg head_branch "$HEAD_BRANCH" \
+            --arg timestamp "$ISO_TIMESTAMP" \
+            --arg unix_ts "$UNIX_TS" \
+          '{
+            embeds: [
+              {
+                title: ($pr_number + " " + $pr_title),
+                url: $pr_url,
+                description: ("PR " + $status + " (" + $head_branch + " → " + $base_branch + ")"),
+                timestamp: $timestamp,
+                author: {
+                  name: $author_login,
+                  icon_url: $author_avatar
+                },
+                footer: {
+                  text: ("<t:" + $unix_ts + ":R>")
+                },
+                fields: [
+                  { name: "Dépôt", value: $repo, inline: true },
+                  { name: "Source", value: $head_branch, inline: true },
+                  { name: "Cible", value: $base_branch, inline: true },
+                  { name: "Statut", value: $status, inline: true }
+                ]
+              }
+            ]
+          }' > payload.json
+
+          curl -X POST "$DISCORD_WEBHOOK" \
+               -H "Content-Type: application/json" \
+               -d @payload.json
