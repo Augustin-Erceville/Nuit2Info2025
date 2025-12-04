@@ -14,7 +14,7 @@ session_start();
 <body class="bg-dark">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid position-relative">
-        <a class="navbar-brand d-flex align-items-center" href="accueil.php">
+        <a class="navbar-brand d-flex align-items-center" href="../accueil.php">
             <i class="bi bi-moon-stars fs-1 me-2"></i>
             <span class="fs-3 fw-bold text-light">NUIT DE L'INFO</span>
         </a>
@@ -25,7 +25,7 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
-                <a href="moduleMateriel/moduleMaterielMain.php" class="btn btn-outline-light btn-lg me-2"
+                <a href="moduleMaterielMain.php" class="btn btn-outline-light btn-lg active me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Matériels">
                     <i class="bi bi-pc-display"></i>
                 </a>
@@ -37,28 +37,28 @@ session_start();
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="../connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="../inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-<!--          Mobile menu          -->
+            <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-light w-100" href="moduleMateriel/moduleMaterielMain.php">
+                    <a class="btn btn-outline-light active w-100" href="moduleMaterielMain.php">
                         <i class="bi bi-pc-display"></i>
                         Matériels
                     </a>
                 </li>
                 <li class="nav-item dropdown">
-                    <a class="btn btn-outline-light w-100 dropdown-toggle" href="#"
+                    <a class="btn btn-outline-light w-100 dropdown-toggle" href=""
                        id="compteDropdown" role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
                         <i class="bi bi-person me-1"></i>
@@ -66,12 +66,12 @@ session_start();
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="compteDropdown">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="../connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="../inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
