@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Repondre.php';
 
 use PDO;
@@ -26,7 +26,7 @@ class RepondreRepository
                         :id_utilisateur, :id_question, :id_choix, 
                         :date_reponse, :est_correct, :temps_reponse
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'id_utilisateur' => $reponse->getIdUtilisateur(),
@@ -51,9 +51,9 @@ class RepondreRepository
             $query = "SELECT * FROM repondre WHERE id_reponse = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -76,7 +76,7 @@ class RepondreRepository
                      est_correct = :est_correct,
                      temps_reponse = :temps_reponse
                      WHERE id_reponse = :id_reponse";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'id_utilisateur' => $reponse->getIdUtilisateur(),
@@ -116,9 +116,9 @@ class RepondreRepository
                 'id_utilisateur' => $id_utilisateur,
                 'id_question' => $id_question
             ]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             return $data ? $this->createRepondreFromData($data) : null;
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche de la réponse : ' . $e->getMessage());
@@ -131,19 +131,19 @@ class RepondreRepository
         try {
             $query = "SELECT r.* FROM repondre r
                      JOIN question q ON r.id_question = q.id_question";
-            
+
             $params = ['id_utilisateur' => $id_utilisateur];
-            
+
             if ($id_quiz !== null) {
                 $query .= " WHERE q.id_quiz = :id_quiz AND r.id_utilisateur = :id_utilisateur";
                 $params['id_quiz'] = $id_quiz;
             } else {
                 $query .= " WHERE r.id_utilisateur = :id_utilisateur";
             }
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute($params);
-            
+
             return $this->fetchReponses($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des réponses de l\'utilisateur : ' . $e->getMessage());
@@ -154,29 +154,27 @@ class RepondreRepository
     public function getStatistiquesQuestion(int $id_question): array
     {
         try {
-            // Nombre total de réponses
+
             $query = "SELECT 
                          COUNT(*) as total_reponses,
                          SUM(CASE WHEN est_correct = 1 THEN 1 ELSE 0 END) as bonnes_reponses,
                          AVG(temps_reponse) as temps_moyen
                       FROM repondre 
                       WHERE id_question = :id_question";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_question' => $id_question]);
-            
+
             $stats = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            // Pourcentage de bonnes réponses
+
             if ($stats['total_reponses'] > 0) {
                 $stats['pourcentage_reussite'] = round(($stats['bonnes_reponses'] / $stats['total_reponses']) * 100, 2);
             } else {
                 $stats['pourcentage_reussite'] = 0;
             }
-            
-            // Arrondir le temps moyen
+
             $stats['temps_moyen'] = $stats['temps_moyen'] !== null ? round($stats['temps_moyen']) : null;
-            
+
             return $stats;
         } catch (PDOException $e) {
             error_log('Erreur lors de la récupération des statistiques de la question : ' . $e->getMessage());

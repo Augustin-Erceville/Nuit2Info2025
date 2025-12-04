@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Materiel.php
- * Modèle représentant un matériel de la table `materiel`.
- */
 
 class Materiel
 {
@@ -35,7 +31,6 @@ class Materiel
         $this->id_etablissement = $id_etablissement;
     }
 
-    // Getters
     public function getIdMateriel(): ?int
     {
         return $this->id_materiel;
@@ -76,7 +71,6 @@ class Materiel
         return $this->id_etablissement;
     }
 
-    // Setters
     public function setIdMateriel(?int $id_materiel): void
     {
         $this->id_materiel = $id_materiel;
@@ -117,7 +111,6 @@ class Materiel
         $this->id_etablissement = $id_etablissement;
     }
 
-    // Méthodes utilitaires
     public function estDisponible(): bool
     {
         return $this->quantite_disponible > 0;

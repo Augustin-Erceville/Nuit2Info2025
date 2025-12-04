@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/RessourceContenu.php';
 
 use PDO;
@@ -26,7 +26,7 @@ class RessourceContenuRepository
                         :titre, :description, :contenu, :type_contenu, 
                         :id_createur, :est_public, :categorie, :mots_cles
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'titre' => $ressource->getTitre(),
@@ -54,18 +54,18 @@ class RessourceContenuRepository
             if (!$inclurePrive) {
                 $query .= " AND (est_public = 1 OR id_createur = :user_id)";
             }
-            
+
             $stmt = $this->bdd->prepare($query);
             $params = ['id' => $id];
-            
+
             if (!$inclurePrive && isset($_SESSION['user_id'])) {
                 $params['user_id'] = $_SESSION['user_id'];
             }
-            
+
             $stmt->execute($params);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -91,7 +91,7 @@ class RessourceContenuRepository
                      mots_cles = :mots_cles,
                      note_moyenne = :note_moyenne
                      WHERE id_ressource = :id_ressource";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'titre' => $ressource->getTitre(),
@@ -114,15 +114,13 @@ class RessourceContenuRepository
     {
         try {
             $this->bdd->beginTransaction();
-            
-            // Supprimer d'abord les dépendances
+
             $this->supprimerCommentaires($id);
-            
-            // Puis supprimer la ressource
+
             $query = "DELETE FROM ressources_contenu WHERE id_ressource = :id";
             $stmt = $this->bdd->prepare($query);
             $result = $stmt->execute(['id' => $id]);
-            
+
             $this->bdd->commit();
             return $result;
         } catch (\Exception $e) {
@@ -145,7 +143,7 @@ class RessourceContenuRepository
             $query = "UPDATE ressources_contenu SET 
                      nombre_vues = nombre_vues + 1 
                      WHERE id_ressource = :id_ressource";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute(['id_ressource' => $id_ressource]);
         } catch (PDOException $e) {
@@ -159,20 +157,19 @@ class RessourceContenuRepository
         try {
             $query = "SELECT * FROM ressources_contenu 
                      WHERE (titre LIKE :term OR description LIKE :term OR contenu LIKE :term OR mots_cles LIKE :term)";
-            
+
             $params = ['term' => "%$term%"];
-            
-            // Filtres supplémentaires
+
             if (!empty($filtres['categorie'])) {
                 $query .= " AND categorie = :categorie";
                 $params['categorie'] = $filtres['categorie'];
             }
-            
+
             if (!empty($filtres['type_contenu'])) {
                 $query .= " AND type_contenu = :type_contenu";
                 $params['type_contenu'] = $filtres['type_contenu'];
             }
-            
+
             if (empty($filtres['inclure_prive'])) {
                 $query .= " AND est_public = 1";
                 if (isset($_SESSION['user_id'])) {
@@ -180,36 +177,33 @@ class RessourceContenuRepository
                     $params['user_id'] = $_SESSION['user_id'];
                 }
             }
-            
-            // Tri
+
             $orderBy = $filtres['order_by'] ?? 'date_creation';
             $orderDir = isset($filtres['order_dir']) && strtoupper($filtres['order_dir']) === 'ASC' ? 'ASC' : 'DESC';
             $query .= " ORDER BY $orderBy $orderDir";
-            
-            // Pagination
+
             if (isset($filtres['limit'])) {
                 $query .= " LIMIT :limit";
                 if (isset($filtres['offset'])) {
                     $query .= " OFFSET :offset";
                 }
             }
-            
+
             $stmt = $this->bdd->prepare($query);
-            
-            // Liaison des paramètres
+
             foreach ($params as $key => $value) {
                 $stmt->bindValue(":$key", $value);
             }
-            
+
             if (isset($filtres['limit'])) {
                 $stmt->bindValue(':limit', (int)$filtres['limit'], PDO::PARAM_INT);
                 if (isset($filtres['offset'])) {
                     $stmt->bindValue(':offset', (int)$filtres['offset'], PDO::PARAM_INT);
                 }
             }
-            
+
             $stmt->execute();
-            
+
             return $this->fetchRessources($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche de ressources : ' . $e->getMessage());
@@ -222,16 +216,16 @@ class RessourceContenuRepository
         try {
             $query = "SELECT * FROM ressources_contenu 
                      WHERE id_createur = :id_createur";
-            
+
             if (!$inclurePrive) {
                 $query .= " AND est_public = 1";
             }
-            
+
             $query .= " ORDER BY date_creation DESC";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_createur' => $id_createur]);
-            
+
             return $this->fetchRessources($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des ressources par créateur : ' . $e->getMessage());
@@ -247,7 +241,7 @@ class RessourceContenuRepository
                      WHERE est_public = 1 
                      GROUP BY categorie 
                      ORDER BY nombre DESC";
-            
+
             $stmt = $this->bdd->query($query);
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
@@ -277,11 +271,11 @@ class RessourceContenuRepository
                      GROUP BY mot_cle
                      ORDER BY nombre DESC
                      LIMIT :limit";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            
+
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log('Erreur lors de la récupération des mots-clés populaires : ' . $e->getMessage());

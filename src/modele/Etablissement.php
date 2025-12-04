@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Etablissement.php
- * Modèle représentant un établissement de la table `etablissements`.
- */
 
 class Etablissement
 {
@@ -44,7 +40,6 @@ class Etablissement
         $this->statut = $statut;
     }
 
-    // Getters
     public function getIdEtablissement(): ?int
     {
         return $this->id_etablissement;
@@ -100,7 +95,6 @@ class Etablissement
         return $this->statut;
     }
 
-    // Setters
     public function setIdEtablissement(?int $id_etablissement): void
     {
         $this->id_etablissement = $id_etablissement;

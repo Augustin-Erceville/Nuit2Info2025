@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/RessourceContenu.php
- * Modèle représentant une ressource de contenu de la table `ressources_contenu`.
- */
 
 class RessourceContenu
 {
@@ -50,7 +46,6 @@ class RessourceContenu
         $this->note_moyenne = $note_moyenne;
     }
 
-    // Getters
     public function getIdRessource(): ?int
     {
         return $this->id_ressource;
@@ -116,7 +111,6 @@ class RessourceContenu
         return $this->note_moyenne;
     }
 
-    // Setters
     public function setIdRessource(?int $id_ressource): void
     {
         $this->id_ressource = $id_ressource;
@@ -182,7 +176,6 @@ class RessourceContenu
         $this->note_moyenne = $note_moyenne;
     }
 
-    // Méthodes utilitaires
     public function incrementerVues(): void
     {
         $this->nombre_vues++;

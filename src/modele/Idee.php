@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Idee.php
- * Modèle représentant une idée de la table `idee`.
- */
 
 class Idee
 {
@@ -38,7 +34,6 @@ class Idee
         $this->nombre_votes = $nombre_votes;
     }
 
-    // Getters
     public function getIdIdee(): ?int
     {
         return $this->id_idee;
@@ -84,7 +79,6 @@ class Idee
         return $this->nombre_votes;
     }
 
-    // Setters
     public function setIdIdee(?int $id_idee): void
     {
         $this->id_idee = $id_idee;
@@ -130,7 +124,6 @@ class Idee
         $this->nombre_votes = $nombre_votes;
     }
 
-    // Méthodes utilitaires
     public function ajouterVote(float $note): void
     {
         $total_notes = $this->note_moyenne * $this->nombre_votes;

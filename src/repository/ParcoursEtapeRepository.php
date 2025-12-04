@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/ParcoursEtape.php';
 
 use PDO;
@@ -26,7 +26,7 @@ class ParcoursEtapeRepository
                         :id_parcours, :titre, :description, :contenu, 
                         :type_contenu, :ordre, :est_terminee
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'id_parcours' => $etape->getIdParcours(),
@@ -52,9 +52,9 @@ class ParcoursEtapeRepository
             $query = "SELECT * FROM parcours_etapes WHERE id_etape = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -79,7 +79,7 @@ class ParcoursEtapeRepository
                      est_terminee = :est_terminee,
                      date_modification = NOW()
                      WHERE id_etape = :id_etape";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'id_parcours' => $etape->getIdParcours(),
@@ -117,7 +117,7 @@ class ParcoursEtapeRepository
                      ORDER BY ordre, date_creation";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_parcours' => $id_parcours]);
-            
+
             return $this->fetchParcoursEtapes($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des étapes du parcours : ' . $e->getMessage());
@@ -134,9 +134,9 @@ class ParcoursEtapeRepository
                      LIMIT 1";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_parcours' => $id_parcours]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             return $data ? $this->createParcoursEtapeFromData($data) : null;
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche de la première étape : ' . $e->getMessage());
@@ -156,9 +156,9 @@ class ParcoursEtapeRepository
                 'id_parcours' => $id_parcours,
                 'ordre_actuel' => $ordre_actuel
             ]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             return $data ? $this->createParcoursEtapeFromData($data) : null;
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche de l\'étape suivante : ' . $e->getMessage());
@@ -170,11 +170,11 @@ class ParcoursEtapeRepository
     {
         try {
             $this->bdd->beginTransaction();
-            
+
             $query = "UPDATE parcours_etapes SET ordre = :ordre 
                      WHERE id_etape = :id_etape AND id_parcours = :id_parcours";
             $stmt = $this->bdd->prepare($query);
-            
+
             foreach ($newOrder as $position => $id_etape) {
                 $stmt->execute([
                     'ordre' => $position + 1,
@@ -182,10 +182,10 @@ class ParcoursEtapeRepository
                     'id_parcours' => $id_parcours
                 ]);
             }
-            
+
             $this->bdd->commit();
             return true;
-            
+
         } catch (\Exception $e) {
             $this->bdd->rollBack();
             error_log('Erreur lors du réordonnancement des étapes : ' . $e->getMessage());
@@ -200,7 +200,7 @@ class ParcoursEtapeRepository
                      est_terminee = 1,
                      date_modification = NOW()
                      WHERE id_etape = :id_etape";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute(['id_etape' => $id_etape]);
         } catch (PDOException $e) {
@@ -217,10 +217,10 @@ class ParcoursEtapeRepository
                          SUM(CASE WHEN est_terminee = 1 THEN 1 ELSE 0 END) as etapes_terminees
                       FROM parcours_etapes 
                       WHERE id_parcours = :id_parcours";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_parcours' => $id_parcours]);
-            
+
             return $stmt->fetch(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log('Erreur lors du calcul de la progression : ' . $e->getMessage());

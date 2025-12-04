@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Reonditionnement.php
- * Modèle représentant un réonditionnement de la table `reonditionnement`.
- */
 
 class Reonditionnement
 {
@@ -41,7 +37,6 @@ class Reonditionnement
         $this->statut = $statut;
     }
 
-    // Getters
     public function getIdReonditionnement(): ?int
     {
         return $this->id_reonditionnement;
@@ -92,7 +87,6 @@ class Reonditionnement
         return $this->statut;
     }
 
-    // Setters
     public function setIdReonditionnement(?int $id_reonditionnement): void
     {
         $this->id_reonditionnement = $id_reonditionnement;
@@ -143,16 +137,15 @@ class Reonditionnement
         $this->statut = $statut;
     }
 
-    // Méthodes utilitaires
     public function getDureeFormatee(): string
     {
         if ($this->duree_travaux === null) {
             return 'Non spécifiée';
         }
-        
+
         $heures = floor($this->duree_travaux / 60);
         $minutes = $this->duree_travaux % 60;
-        
+
         $result = [];
         if ($heures > 0) {
             $result[] = $heures . 'h';
@@ -160,7 +153,7 @@ class Reonditionnement
         if ($minutes > 0 || empty($result)) {
             $result[] = $minutes . 'min';
         }
-        
+
         return implode(' ', $result);
     }
 

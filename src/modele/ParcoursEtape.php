@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/ParcoursEtape.php
- * Modèle représentant une étape de parcours de la table `parcours_etapes`.
- */
 
 class ParcoursEtape
 {
@@ -41,7 +37,6 @@ class ParcoursEtape
         $this->date_modification = $date_modification;
     }
 
-    // Getters
     public function getIdEtape(): ?int
     {
         return $this->id_etape;
@@ -92,7 +87,6 @@ class ParcoursEtape
         return $this->date_modification;
     }
 
-    // Setters
     public function setIdEtape(?int $id_etape): void
     {
         $this->id_etape = $id_etape;
@@ -143,7 +137,6 @@ class ParcoursEtape
         $this->date_modification = $date_modification;
     }
 
-    // Méthodes utilitaires
     public function marquerCommeTerminee(): void
     {
         $this->est_terminee = true;
@@ -152,7 +145,7 @@ class ParcoursEtape
 
     public function estDerniereEtape(): bool
     {
-        // Cette méthode nécessite une vérification dans le repository
+
         return false;
     }
 }

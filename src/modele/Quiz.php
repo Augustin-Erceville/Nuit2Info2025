@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Quiz.php
- * Modèle représentant un quiz de la table `quiz`.
- */
 
 class Quiz
 {
@@ -41,7 +37,6 @@ class Quiz
         $this->est_actif = $est_actif;
     }
 
-    // Getters
     public function getIdQuiz(): ?int
     {
         return $this->id_quiz;
@@ -92,7 +87,6 @@ class Quiz
         return $this->est_actif;
     }
 
-    // Setters
     public function setIdQuiz(?int $id_quiz): void
     {
         $this->id_quiz = $id_quiz;
@@ -143,7 +137,6 @@ class Quiz
         $this->est_actif = $est_actif;
     }
 
-    // Méthodes utilitaires
     public function marquerCommeModifie(): void
     {
         $this->date_modification = date('Y-m-d H:i:s');
@@ -154,10 +147,10 @@ class Quiz
         if ($this->duree_minutes === null) {
             return 'Illimité';
         }
-        
+
         $heures = floor($this->duree_minutes / 60);
         $minutes = $this->duree_minutes % 60;
-        
+
         $result = [];
         if ($heures > 0) {
             $result[] = $heures . 'h';
@@ -165,7 +158,7 @@ class Quiz
         if ($minutes > 0 || empty($result)) {
             $result[] = $minutes . 'min';
         }
-        
+
         return implode(' ', $result);
     }
 }

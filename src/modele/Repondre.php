@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Repondre.php
- * Modèle représentant une réponse à un quiz de la table `repondre`.
- */
 
 class Repondre
 {
@@ -32,7 +28,6 @@ class Repondre
         $this->temps_reponse = $temps_reponse;
     }
 
-    // Getters
     public function getIdReponse(): ?int
     {
         return $this->id_reponse;
@@ -68,7 +63,6 @@ class Repondre
         return $this->temps_reponse;
     }
 
-    // Setters
     public function setIdReponse(?int $id_reponse): void
     {
         $this->id_reponse = $id_reponse;
@@ -104,16 +98,15 @@ class Repondre
         $this->temps_reponse = $temps_reponse;
     }
 
-    // Méthodes utilitaires
     public function getTempsFormate(): string
     {
         if ($this->temps_reponse === null) {
             return 'N/A';
         }
-        
+
         $minutes = floor($this->temps_reponse / 60);
         $secondes = $this->temps_reponse % 60;
-        
+
         return sprintf('%02d:%02d', $minutes, $secondes);
     }
 }

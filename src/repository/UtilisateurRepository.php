@@ -1,11 +1,11 @@
 <?php
 namespace repository;
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Utilisateur.php';
 
 use \PDO;
 use PDOException;
-use \Utilisateur; // si ta classe Utilisateur est dans le namespace global
+use \Utilisateur; 
 
 class UtilisateurRepository
 {
@@ -15,27 +15,17 @@ class UtilisateurRepository
         $this->bdd = $bdd;
     }
 
-
-    // les méthodes, comme connexion(), etc.
-
-
-    /**
-     * Inscription d'un nouvel utilisateur
-     */
-
     public function inscription(array $data): array {
         try {
-            // Vérifie si l'email existe déjà
+
             $stmt = $this->bdd->prepare("SELECT COUNT(*) FROM utilisateur WHERE email = :email");
             $stmt->execute(['email' => $data['email']]);
             if ($stmt->fetchColumn() > 0) {
                 return ['success' => false, 'error' => 'Email déjà utilisé.'];
             }
 
-            // Hash du mot de passe
             $hashedPassword = password_hash($data['password'], PASSWORD_BCRYPT);
 
-            // Insertion en base
             $stmt = $this->bdd->prepare("
     INSERT INTO utilisateur (prenom, nom, email, mdp, rue, cd, ville, status)
     VALUES (:prenom, :nom, :email, :mdp, :rue, :cd, :ville, 'Attente')
@@ -51,20 +41,12 @@ class UtilisateurRepository
                 'ville' => $data['ville'],
             ]);
 
-
             return ['success' => true, 'error' => ''];
         } catch (PDOException $e) {
             return ['success' => false, 'error' => 'Erreur base de données : ' . $e->getMessage()];
         }
     }
 
-
-
-
-
-    /**
-     * Récupération d’un utilisateur par email
-     */
     public function getUtilisateurParMail($email)
     {
         $stmt = $this->bdd->prepare('SELECT * FROM utilisateur WHERE email = :email');
@@ -89,42 +71,35 @@ class UtilisateurRepository
         return null;
     }
 
-    /**
-     * Connexion d’un utilisateur
-     */
     public function connexion(string $email, string $password)
     {
-        // Nettoyage des entrées
+
         $email = trim($email);
         $password = trim($password);
 
-        // Vérifie que les champs ne sont pas vides
         if (empty($email) || empty($password)) {
             return false;
         }
 
         try {
-            // Prépare et exécute la requête
+
             $sql = "SELECT * FROM utilisateur WHERE email = ?";
             $stmt = $this->bdd->prepare($sql);
             $stmt->execute([$email]);
             $user = $stmt->fetch(\PDO::FETCH_ASSOC);
 
-            // Si aucun utilisateur trouvé
             if (!$user) {
                 return false;
             }
 
-            // Vérifie le mot de passe (haché)
             if (password_verify($password, $user['mdp'])) {
 
-                // Retourne un objet Utilisateur si le login est valide
                 return new Utilisateur(
                     $user['id_utilisateur'],
                     $user['prenom'],
                     $user['nom'],
                     $user['email'],
-                    $user['mdp'], // hash stocké
+                    $user['mdp'], 
                     $user['role'],
                     $user['rue'],
                     $user['cd'],
@@ -132,12 +107,12 @@ class UtilisateurRepository
                 );
 
             } else {
-                 //var_dump("Mot de passe incorrect", $password, $email);
+
                 return false;
             }
 
         } catch (PDOException $e) {
-            // Log en interne ou retour d’erreur
+
             error_log("Erreur connexion utilisateur : " . $e->getMessage());
             return false;
         }
@@ -157,13 +132,6 @@ class UtilisateurRepository
         }
     }
 
-
-
-
-
-    /**
-     * Modification d’un utilisateur
-     */
     public function modifierUtilisateur(Utilisateur $utilisateur)
     {
         $req = $this->bdd->prepare('
@@ -193,10 +161,6 @@ class UtilisateurRepository
         ]);
     }
 
-
-    /**
-     * Suppression d’un utilisateur
-     */
     public function supprimerUtilisateur($id)
     {
         $req = $this->bdd->prepare('DELETE FROM utilisateur WHERE id_utilisateur = :id');

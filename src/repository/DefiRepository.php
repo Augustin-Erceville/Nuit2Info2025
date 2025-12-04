@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Defi.php';
 
 use PDO;
@@ -21,7 +21,7 @@ class DefiRepository
         try {
             $query = "INSERT INTO defis (titre, description, date_limite, id_createur, statut, recompense, niveau_difficulte) 
                      VALUES (:titre, :description, :date_limite, :id_createur, :statut, :recompense, :niveau_difficulte)";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'titre' => $defi->getTitre(),
@@ -47,9 +47,9 @@ class DefiRepository
             $query = "SELECT * FROM defis WHERE id_defi = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -82,7 +82,7 @@ class DefiRepository
                      recompense = :recompense,
                      niveau_difficulte = :niveau_difficulte
                      WHERE id_defi = :id_defi";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'titre' => $defi->getTitre(),
@@ -122,7 +122,7 @@ class DefiRepository
             $query = "SELECT * FROM defis WHERE id_createur = :id_createur ORDER BY date_creation DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_createur' => $id_createur]);
-            
+
             return $this->fetchDefis($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des défis par créateur : ' . $e->getMessage());
@@ -136,7 +136,7 @@ class DefiRepository
             $query = "SELECT * FROM defis WHERE statut = :statut ORDER BY date_creation DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['statut' => $statut]);
-            
+
             return $this->fetchDefis($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des défis par statut : ' . $e->getMessage());

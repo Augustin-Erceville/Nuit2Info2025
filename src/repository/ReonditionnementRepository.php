@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Reonditionnement.php';
 
 use PDO;
@@ -28,7 +28,7 @@ class ReonditionnementRepository
                         :etat_initial, :etat_final, :description, :cout, 
                         :duree_travaux, :statut
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'id_materiel' => $reonditionnement->getIdMateriel(),
@@ -56,9 +56,9 @@ class ReonditionnementRepository
             $query = "SELECT * FROM reonditionnement WHERE id_reonditionnement = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -84,7 +84,7 @@ class ReonditionnementRepository
                      duree_travaux = :duree_travaux,
                      statut = :statut
                      WHERE id_reonditionnement = :id_reonditionnement";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'id_materiel' => $reonditionnement->getIdMateriel(),
@@ -124,7 +124,7 @@ class ReonditionnementRepository
                      ORDER BY date_reonditionnement DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_materiel' => $id_materiel]);
-            
+
             return $this->fetchReonditionnements($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des réonditionnements par matériel : ' . $e->getMessage());
@@ -140,7 +140,7 @@ class ReonditionnementRepository
                      ORDER BY date_reonditionnement DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_utilisateur' => $id_utilisateur]);
-            
+
             return $this->fetchReonditionnements($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des réonditionnements par utilisateur : ' . $e->getMessage());
@@ -156,7 +156,7 @@ class ReonditionnementRepository
                      ORDER BY date_reonditionnement DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['statut' => $statut]);
-            
+
             return $this->fetchReonditionnements($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des réonditionnements par statut : ' . $e->getMessage());
@@ -175,24 +175,24 @@ class ReonditionnementRepository
                          COUNT(*) as nombre_par_statut
                       FROM reonditionnement 
                       GROUP BY statut";
-            
+
             $stmt = $this->bdd->query($query);
             $resultats = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            
+
             $stats = [
                 'total' => 0,
                 'cout_total' => 0,
                 'duree_totale' => 0,
                 'par_statut' => []
             ];
-            
+
             foreach ($resultats as $row) {
                 $stats['total'] += $row['total'];
                 $stats['cout_total'] += (float)$row['cout_total'];
                 $stats['duree_totale'] += (int)$row['duree_totale'];
                 $stats['par_statut'][$row['statut']] = $row['nombre_par_statut'];
             }
-            
+
             return $stats;
         } catch (PDOException $e) {
             error_log('Erreur lors de la récupération des statistiques de réonditionnement : ' . $e->getMessage());

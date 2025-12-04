@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Commentaire.php
- * Modèle représentant un commentaire de la table `commentaires`.
- */
 
 class Commentaire
 {
@@ -32,7 +28,6 @@ class Commentaire
         $this->id_defi = $id_defi;
     }
 
-    // Getters
     public function getIdCommentaire(): ?int
     {
         return $this->id_commentaire;
@@ -68,7 +63,6 @@ class Commentaire
         return $this->id_defi;
     }
 
-    // Setters
     public function setIdCommentaire(?int $id_commentaire): void
     {
         $this->id_commentaire = $id_commentaire;

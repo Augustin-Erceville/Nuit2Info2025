@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Commentaire.php';
 
 use PDO;
@@ -21,7 +21,7 @@ class CommentaireRepository
         try {
             $query = "INSERT INTO commentaires (id_utilisateur, contenu, id_ressource, id_idee, id_defi) 
                      VALUES (:id_utilisateur, :contenu, :id_ressource, :id_idee, :id_defi)";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'id_utilisateur' => $commentaire->getIdUtilisateur(),
@@ -34,7 +34,7 @@ class CommentaireRepository
             $commentaire->setIdCommentaire($this->bdd->lastInsertId());
             return $commentaire;
         } catch (PDOException $e) {
-            // Gérer l'erreur (journalisation, etc.)
+
             error_log('Erreur lors de la création du commentaire : ' . $e->getMessage());
             return null;
         }
@@ -46,9 +46,9 @@ class CommentaireRepository
             $query = "SELECT * FROM commentaires WHERE id_commentaire = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -77,7 +77,7 @@ class CommentaireRepository
                      id_idee = :id_idee,
                      id_defi = :id_defi
                      WHERE id_commentaire = :id_commentaire";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'contenu' => $commentaire->getContenu(),
@@ -125,7 +125,7 @@ class CommentaireRepository
             $query = "SELECT * FROM commentaires WHERE $field = :value ORDER BY date_creation DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['value' => $value]);
-            
+
             $commentaires = [];
             while ($data = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 $commentaires[] = new Commentaire(

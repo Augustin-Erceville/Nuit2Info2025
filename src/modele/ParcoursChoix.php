@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/ParcoursChoix.php
- * Modèle représentant un choix de parcours de la table `parcours_choix`.
- */
 
 class ParcoursChoix
 {
@@ -32,7 +28,6 @@ class ParcoursChoix
         $this->points = $points;
     }
 
-    // Getters
     public function getIdChoix(): ?int
     {
         return $this->id_choix;
@@ -68,7 +63,6 @@ class ParcoursChoix
         return $this->points;
     }
 
-    // Setters
     public function setIdChoix(?int $id_choix): void
     {
         $this->id_choix = $id_choix;

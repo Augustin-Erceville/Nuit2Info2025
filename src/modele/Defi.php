@@ -1,8 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Defi.php
- * Modèle représentant un défi de la table `defis`.
- */
 
 class Defi
 {
@@ -38,7 +34,6 @@ class Defi
         $this->niveau_difficulte = $niveau_difficulte;
     }
 
-    // Getters
     public function getIdDefi(): ?int
     {
         return $this->id_defi;
@@ -84,7 +79,6 @@ class Defi
         return $this->niveau_difficulte;
     }
 
-    // Setters
     public function setIdDefi(?int $id_defi): void
     {
         $this->id_defi = $id_defi;

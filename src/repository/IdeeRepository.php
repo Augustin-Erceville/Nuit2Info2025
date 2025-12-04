@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Idee.php';
 
 use PDO;
@@ -26,7 +26,7 @@ class IdeeRepository
                         :titre, :description, :id_createur, :statut, 
                         :categorie, :note_moyenne, :nombre_votes
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'titre' => $idee->getTitre(),
@@ -52,9 +52,9 @@ class IdeeRepository
             $query = "SELECT * FROM idee WHERE id_idee = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -77,7 +77,7 @@ class IdeeRepository
                      note_moyenne = :note_moyenne,
                      nombre_votes = :nombre_votes
                      WHERE id_idee = :id_idee";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'titre' => $idee->getTitre(),
@@ -117,7 +117,7 @@ class IdeeRepository
             $query = "SELECT * FROM idee WHERE id_createur = :id_createur ORDER BY date_creation DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_createur' => $id_createur]);
-            
+
             return $this->fetchIdees($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des idées par créateur : ' . $e->getMessage());
@@ -131,7 +131,7 @@ class IdeeRepository
             $query = "SELECT * FROM idee WHERE categorie = :categorie AND statut = 'approuve' ORDER BY note_moyenne DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['categorie' => $categorie]);
-            
+
             return $this->fetchIdees($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des idées par catégorie : ' . $e->getMessage());
@@ -147,7 +147,7 @@ class IdeeRepository
             $stmt = $this->bdd->prepare($query);
             $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
             $stmt->execute();
-            
+
             return $this->fetchIdees($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des idées les mieux notées : ' . $e->getMessage());
@@ -165,7 +165,7 @@ class IdeeRepository
             $stmt = $this->bdd->prepare($query);
             $searchTerm = "%$term%";
             $stmt->execute(['term' => $searchTerm]);
-            
+
             return $this->fetchIdees($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche d\'idées : ' . $e->getMessage());
@@ -177,32 +177,29 @@ class IdeeRepository
     {
         try {
             $this->bdd->beginTransaction();
-            
-            // Récupérer les données actuelles
+
             $idee = $this->findById($id_idee);
             if (!$idee) {
                 throw new \Exception("Idée non trouvée");
             }
-            
-            // Mettre à jour la note
+
             $idee->ajouterVote($note);
-            
-            // Mettre à jour en base
+
             $query = "UPDATE idee SET 
                      note_moyenne = :note_moyenne,
                      nombre_votes = :nombre_votes
                      WHERE id_idee = :id_idee";
-            
+
             $stmt = $this->bdd->prepare($query);
             $result = $stmt->execute([
                 'note_moyenne' => $idee->getNoteMoyenne(),
                 'nombre_votes' => $idee->getNombreVotes(),
                 'id_idee' => $id_idee
             ]);
-            
+
             $this->bdd->commit();
             return $result;
-            
+
         } catch (\Exception $e) {
             $this->bdd->rollBack();
             error_log('Erreur lors de l\'ajout d\'un vote : ' . $e->getMessage());
@@ -216,7 +213,7 @@ class IdeeRepository
             $query = "SELECT * FROM idee WHERE statut = :statut ORDER BY date_creation DESC";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['statut' => $statut]);
-            
+
             return $this->fetchIdees($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche des idées par statut : ' . $e->getMessage());

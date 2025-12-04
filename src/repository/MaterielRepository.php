@@ -1,7 +1,7 @@
 <?php
 namespace repository;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../bdd/config.php';
 require_once __DIR__ . '/../modele/Materiel.php';
 
 use PDO;
@@ -26,7 +26,7 @@ class MaterielRepository
                         :nom, :description, :quantite_disponible, :quantite_totale, 
                         :etat, :id_etablissement
                      )";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'nom' => $materiel->getNom(),
@@ -51,9 +51,9 @@ class MaterielRepository
             $query = "SELECT * FROM materiel WHERE id_materiel = :id";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id' => $id]);
-            
+
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+
             if (!$data) {
                 return null;
             }
@@ -76,7 +76,7 @@ class MaterielRepository
                      etat = :etat,
                      id_etablissement = :id_etablissement
                      WHERE id_materiel = :id_materiel";
-            
+
             $stmt = $this->bdd->prepare($query);
             return $stmt->execute([
                 'nom' => $materiel->getNom(),
@@ -111,7 +111,7 @@ class MaterielRepository
             $query = "SELECT * FROM materiel WHERE id_etablissement = :id_etablissement ORDER BY nom";
             $stmt = $this->bdd->prepare($query);
             $stmt->execute(['id_etablissement' => $id_etablissement]);
-            
+
             return $this->fetchMateriels($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche du matériel par établissement : ' . $e->getMessage());
@@ -124,17 +124,17 @@ class MaterielRepository
         try {
             $query = "SELECT * FROM materiel WHERE quantite_disponible > 0";
             $params = [];
-            
+
             if ($id_etablissement !== null) {
                 $query .= " AND id_etablissement = :id_etablissement";
                 $params['id_etablissement'] = $id_etablissement;
             }
-            
+
             $query .= " ORDER BY nom";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute($params);
-            
+
             return $this->fetchMateriels($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche du matériel disponible : ' . $e->getMessage());
@@ -147,19 +147,19 @@ class MaterielRepository
         try {
             $query = "SELECT * FROM materiel 
                      WHERE (nom LIKE :term OR description LIKE :term)";
-            
+
             $params = ['term' => "%$term%"];
-            
+
             if ($id_etablissement !== null) {
                 $query .= " AND id_etablissement = :id_etablissement";
                 $params['id_etablissement'] = $id_etablissement;
             }
-            
+
             $query .= " ORDER BY nom";
-            
+
             $stmt = $this->bdd->prepare($query);
             $stmt->execute($params);
-            
+
             return $this->fetchMateriels($stmt);
         } catch (PDOException $e) {
             error_log('Erreur lors de la recherche de matériel : ' . $e->getMessage());
@@ -171,25 +171,23 @@ class MaterielRepository
     {
         try {
             $this->bdd->beginTransaction();
-            
-            // Vérifier la disponibilité
+
             $materiel = $this->findById($id_materiel);
             if (!$materiel || !$materiel->emprunter($quantite)) {
                 $this->bdd->rollBack();
                 return false;
             }
-            
-            // Mettre à jour la quantité disponible
+
             $query = "UPDATE materiel SET 
                      quantite_disponible = quantite_disponible - :quantite
                      WHERE id_materiel = :id_materiel";
-            
+
             $stmt = $this->bdd->prepare($query);
             $result = $stmt->execute([
                 'quantite' => $quantite,
                 'id_materiel' => $id_materiel
             ]);
-            
+
             if ($result) {
                 $this->bdd->commit();
                 return true;
@@ -197,7 +195,7 @@ class MaterielRepository
                 $this->bdd->rollBack();
                 return false;
             }
-            
+
         } catch (\Exception $e) {
             $this->bdd->rollBack();
             error_log('Erreur lors de l\'emprunt de matériel : ' . $e->getMessage());
@@ -209,25 +207,23 @@ class MaterielRepository
     {
         try {
             $this->bdd->beginTransaction();
-            
-            // Vérifier la cohérence du retour
+
             $materiel = $this->findById($id_materiel);
             if (!$materiel || !$materiel->retourner($quantite)) {
                 $this->bdd->rollBack();
                 return false;
             }
-            
-            // Mettre à jour la quantité disponible
+
             $query = "UPDATE materiel SET 
                      quantite_disponible = LEAST(quantite_disponible + :quantite, quantite_totale)
                      WHERE id_materiel = :id_materiel";
-            
+
             $stmt = $this->bdd->prepare($query);
             $result = $stmt->execute([
                 'quantite' => $quantite,
                 'id_materiel' => $id_materiel
             ]);
-            
+
             if ($result) {
                 $this->bdd->commit();
                 return true;
@@ -235,7 +231,7 @@ class MaterielRepository
                 $this->bdd->rollBack();
                 return false;
             }
-            
+
         } catch (\Exception $e) {
             $this->bdd->rollBack();
             error_log('Erreur lors du retour du matériel : ' . $e->getMessage());

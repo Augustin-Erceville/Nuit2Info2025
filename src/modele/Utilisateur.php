@@ -1,13 +1,4 @@
 <?php
-/**
- * Fichier : src/modele/Utilisateur.php
- * Modèle représentant un utilisateur de la table `utilisateur`.
- *
- * Ce modèle est compatible avec UtilisateurRepository :
- *  - new Utilisateur($id, $prenom, $nom, $email, $mdp, $role, $rue, $cd, $ville)
- *  - getters : getIdUtilisateur(), getPrenom(), getNom(), getEmail(),
- *              getRue(), getCd(), getVille(), getRole(), getStatus()
- */
 
 class Utilisateur
 {
