@@ -10,6 +10,6 @@ $sql = "INSERT INTO messages (auteur, contenu, parent_id)
 
 $conn->query($sql);
 
-header("Location: index.php");
+header("Location: ../accueil.php");
 exit;
 ?>
