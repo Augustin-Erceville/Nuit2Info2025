@@ -127,26 +127,23 @@ session_start();
                         </div>
                     </div>
                 </div>
-
+                <div class="row g-2 my-2">
+                    <div class="col-md">
+                        <div class="form-floating">
+                            <input type="email" class="form-control text-light bg-transparent"
+                                   id="floatingNaissance" placeholder="Adresse email" required
+                                   autocomplete="bday">
+                            <label for="floatingNaissance">Adresse email</label>
+                        </div>
+                    </div>
+                </div>
                 <div class="row g-2 my-2">
                     <div class="col-md">
                         <div class="form-floating">
                             <input type="text" class="form-control text-light bg-transparent"
-                                   id="floatingDiscord" placeholder="Pseudo discord" required
+                                   id="floatingDiscord" placeholder="Adresse" required
                                    autocomplete="username">
-                            <label for="floatingDiscord">Pseudo discord</label>
-                        </div>
-                    </div>
-                    <div class="col-md">
-                        <div class="form-floating">
-                            <select class="form-select text-light bg-transparent"
-                                    id="floatingGenre" required autocomplete="sex">
-                                <option value="" selected disabled>Choisir...</option>
-                                <option value="Homme">Homme</option>
-                                <option value="Femme">Femme</option>
-                                <option value="Autre">Autre</option>
-                            </select>
-                            <label for="floatingGenre">Genre</label>
+                            <label for="floatingDiscord">Adresse</label>
                         </div>
                     </div>
                 </div>
@@ -185,7 +182,7 @@ session_start();
                     </div>
                 </div>
             </form>
-            <a href="login.php" class="btn btn-secondary btn-sm w-100">
+            <a href="connexion.php" class="btn btn-secondary btn-sm w-100">
                 Se connecter
             </a>
         </div>

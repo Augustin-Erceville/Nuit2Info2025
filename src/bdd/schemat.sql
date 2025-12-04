@@ -302,8 +302,6 @@ CREATE TABLE IF NOT EXISTS `users` (
     `date_naissance` date NOT NULL,
     `téléphone` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
     `addresse` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-    `copde_postal` varchar(5) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
-    `ville` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
     `role` enum('eleve','enseignant','technicien','collectivite','admin') COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Rôle principal de l’utilisateur dans la plateforme',
     `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date et heure de création du compte',
     PRIMARY KEY (`id`),
