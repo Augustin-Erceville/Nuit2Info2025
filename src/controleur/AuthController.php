@@ -1,7 +1,7 @@
 <?php
 namespace controleur;
 
-require_once __DIR__ . '/../bdd/Bdd.php';
+require_once __DIR__ . '/../Bdd/Bdd.php';
 require_once __DIR__ . '/../modele/Utilisateur.php';
 require_once __DIR__ . '/../repository/UtilisateurRepository.php';
 

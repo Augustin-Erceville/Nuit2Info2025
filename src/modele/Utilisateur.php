@@ -1,137 +1,137 @@
 <?php
 
-class Utilisateur
-{
-    private $id_utilisateur;
-    private $prenom;
+class Utilisateur {
+    private $id;
     private $nom;
+    private $prenom;
     private $email;
-    private $mdp;
+    private $adresse;
+    private $telephone;
+    private $dateNaissance;
+    private $motDePasse;
     private $role;
-    private $rue;
-    private $cd;
-    private $ville;
-    private $status;
-    public function __construct(
-        ?int $id_utilisateur = null,
-        string $prenom = '',
-        string $nom = '',
-        string $email = '',
-        string $mdp = '',
-        string $role = 'user',
-        ?string $rue = null,
-        ?int $cd = null,
-        ?string $ville = null,
-        string $status = 'Attente'
-    ) {
-        $this->id_utilisateur = $id_utilisateur;
-        $this->prenom         = $prenom;
-        $this->nom            = $nom;
-        $this->email          = $email;
-        $this->mdp            = $mdp;
-        $this->role           = $role;
-        $this->rue            = $rue;
-        $this->cd             = $cd;
-        $this->ville          = $ville;
-        $this->status         = $status;
+    private $created_at;
+
+    public function __construct($data = []) {
+        if (isset($data['id'])) $this->id = $data['id'];
+        if (isset($data['nom'])) $this->nom = $data['nom'];
+        if (isset($data['prenom'])) $this->prenom = $data['prenom'];
+        if (isset($data['email'])) $this->email = $data['email'];
+        if (isset($data['adresse'])) $this->adresse = $data['adresse'];
+        if (isset($data['telephone'])) $this->telephone = $data['telephone'];
+        if (isset($data['dateNaissance'])) $this->dateNaissance = $data['dateNaissance'];
+        if (isset($data['motDePasse'])) $this->motDePasse = $data['motDePasse'];
+        if (isset($data['role'])) $this->role = $data['role'];
+        if (isset($data['created_at'])) $this->created_at = $data['created_at'];
     }
-    public function getIdUtilisateur(): ?int
-    {
-        return $this->id_utilisateur;
+
+    // Getters
+    public function getId() {
+        return $this->id;
     }
-    public function getPrenom(): string
-    {
-        return $this->prenom;
+
+    public function getIdUtilisateur() {
+        return $this->id;
     }
-    public function getNom(): string
-    {
+
+    public function getNom() {
         return $this->nom;
     }
-    public function getEmail(): string
-    {
+
+    public function getPrenom() {
+        return $this->prenom;
+    }
+
+    public function getEmail() {
         return $this->email;
     }
-    public function getMdp(): string
-    {
-        return $this->mdp;
+
+    public function getAdresse() {
+        return $this->adresse;
     }
-    public function getRole(): string
-    {
+
+    public function getTelephone() {
+        return $this->telephone;
+    }
+
+    public function getDateNaissance() {
+        return $this->dateNaissance;
+    }
+
+    public function getMotDePasse() {
+        return $this->motDePasse;
+    }
+
+    public function getRole() {
         return $this->role;
     }
-    public function getRue(): ?string
-    {
-        return $this->rue;
+
+    public function getCreatedAt() {
+        return $this->created_at;
     }
-    public function getCd(): ?int
-    {
-        return $this->cd;
+
+    // Setters
+    public function setId($id) {
+        $this->id = $id;
     }
-    public function getVille(): ?string
-    {
-        return $this->ville;
+
+    public function setIdUtilisateur($id) {
+        $this->id = $id;
     }
-    public function getStatus(): string
-    {
-        return $this->status;
-    }
-    public function setIdUtilisateur(?int $id_utilisateur): void
-    {
-        $this->id_utilisateur = $id_utilisateur;
-    }
-    public function setPrenom(string $prenom): void
-    {
-        $this->prenom = $prenom;
-    }
-    public function setNom(string $nom): void
-    {
+
+    public function setNom($nom) {
         $this->nom = $nom;
     }
-    public function setEmail(string $email): void
-    {
+
+    public function setPrenom($prenom) {
+        $this->prenom = $prenom;
+    }
+
+    public function setEmail($email) {
         $this->email = $email;
     }
-    public function setMdp(string $mdp): void
-    {
-        $this->mdp = $mdp;
+
+    public function setAdresse($adresse) {
+        $this->adresse = $adresse;
     }
-    public function setRole(string $role): void
-    {
+
+    public function setTelephone($telephone) {
+        $this->telephone = $telephone;
+    }
+
+    public function setDateNaissance($dateNaissance) {
+        $this->dateNaissance = $dateNaissance;
+    }
+
+    public function setMotDePasse($motDePasse) {
+        $this->motDePasse = $motDePasse;
+    }
+
+    public function setRole($role) {
         $this->role = $role;
     }
-    public function setRue(?string $rue): void
-    {
-        $this->rue = $rue;
+
+    public function setCreatedAt($created_at) {
+        $this->created_at = $created_at;
     }
-    public function setCd(?int $cd): void
-    {
-        $this->cd = $cd;
-    }
-    public function setVille(?string $ville): void
-    {
-        $this->ville = $ville;
-    }
-    public function setStatus(string $status): void
-    {
-        $this->status = $status;
-    }
-    public function getNomComplet(): string
-    {
-        return trim($this->prenom . ' ' . $this->nom);
-    }
-    public function toArray(): array
-    {
+
+    // Méthodes utiles
+    public function toArray() {
         return [
-            'id_utilisateur' => $this->id_utilisateur,
-            'prenom'         => $this->prenom,
-            'nom'            => $this->nom,
-            'email'          => $this->email,
-            'mdp'            => $this->mdp,
-            'role'           => $this->role,
-            'rue'            => $this->rue,
-            'cd'             => $this->cd,
-            'ville'          => $this->ville,
-            'status'         => $this->status,
+            'id' => $this->id,
+            'nom' => $this->nom,
+            'prenom' => $this->prenom,
+            'email' => $this->email,
+            'adresse' => $this->adresse,
+            'telephone' => $this->telephone,
+            'dateNaissance' => $this->dateNaissance,
+            'role' => $this->role,
+            'created_at' => $this->created_at
         ];
     }
+
+    public function getNomComplet() {
+        return $this->prenom . ' ' . $this->nom;
+    }
 }
+?>

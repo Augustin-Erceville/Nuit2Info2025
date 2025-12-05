@@ -5,7 +5,7 @@ session_start();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil - Portfolio</title>
+    <title>Accueil - Nuit 2 l'Info</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../src/styles.css" rel="stylesheet">
@@ -37,12 +37,12 @@ session_start();
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
@@ -66,12 +66,12 @@ session_start();
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="compteDropdown">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>

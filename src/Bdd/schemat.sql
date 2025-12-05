@@ -292,8 +292,8 @@ CREATE TABLE IF NOT EXISTS `ressources_externes` (
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
+DROP TABLE IF EXISTS `utilisateur`;
+CREATE TABLE IF NOT EXISTS `utilisateur` (
                                        `id` int UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Identifiant unique de l’utilisateur',
                                        `nom` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Nom de famille de l’utilisateur',
     `prenom` varchar(100) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Prénom de l’utilisateur',
@@ -301,7 +301,7 @@ CREATE TABLE IF NOT EXISTS `users` (
     `mot_de_passe` varchar(255) COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Mot de passe chiffré de l’utilisateur',
     `date_naissance` date NOT NULL,
     `téléphone` varchar(11) COLLATE utf8mb4_general_ci NOT NULL,
-    `addresse` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+    `adresse` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
     `role` enum('eleve','enseignant','technicien','collectivite','admin') COLLATE utf8mb4_general_ci NOT NULL COMMENT 'Rôle principal de l’utilisateur dans la plateforme',
     `date_creation` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'Date et heure de création du compte',
     PRIMARY KEY (`id`),

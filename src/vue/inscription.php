@@ -63,7 +63,7 @@ $description = 'Créez votre compte pour accéder à toutes les fonctionnalités
                 </div>
             <?php endif; ?>
 
-            <form class="mt-8 space-y-6" action="/inscription" method="POST">
+            <form class="mt-8 space-y-6" action="../vue/inscription" method="POST">
                 <div class="rounded-md shadow-sm space-y-4">
                     <div class="grid grid-cols-2 gap-4">
                         <div>

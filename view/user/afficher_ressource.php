@@ -78,12 +78,12 @@ function afficherCommentaires($list, $parent = null, $niveau = 0) {
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
@@ -107,12 +107,12 @@ function afficherCommentaires($list, $parent = null, $niveau = 0) {
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="compteDropdown">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
