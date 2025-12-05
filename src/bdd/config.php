@@ -11,7 +11,7 @@ class Bdd {
         }
     }
 
-    public function get1() {
+    public function getBdd() {
         return $this->bdd;
     }
 }
