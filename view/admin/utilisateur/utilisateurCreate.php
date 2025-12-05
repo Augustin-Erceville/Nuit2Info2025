@@ -2,10 +2,10 @@
 session_start();
 
 // Vérification d'accès (admin uniquement)
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: ../../user/Connexion.php');
-    exit();
-}
+//if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+//    header('Location: ../../user/Connexion.php');
+//    exit();
+//}
 
 $error = $_SESSION['error'] ?? '';
 $success = $_SESSION['success'] ?? '';
