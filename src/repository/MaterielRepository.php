@@ -248,6 +248,12 @@ class MaterielRepository
         return $materiels;
     }
 
+    public function getByType(string $type): array {
+        $stmt = $this->bdd->prepare("SELECT * FROM materiel WHERE type = :type");
+        $stmt->execute(['type' => $type]);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     private function createMaterielFromData(array $data): Materiel
     {
         return new Materiel(
