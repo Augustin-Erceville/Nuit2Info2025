@@ -289,7 +289,6 @@ CREATE TABLE IF NOT EXISTS `ressources_externes` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
 --
 
 DROP TABLE IF EXISTS `utilisateur`;
@@ -332,7 +331,7 @@ CREATE TABLE IF NOT EXISTS `user_etablissement` (
 -- Contraintes pour la table `commentaires`
 --
 ALTER TABLE `commentaires`
-    ADD CONSTRAINT `fk_comment_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
+    ADD CONSTRAINT `fk_comment_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `utilisateur` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_comment_parent` FOREIGN KEY (`parent_id`) REFERENCES `commentaires` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `fk_comment_ressource` FOREIGN KEY (`ressource_id`) REFERENCES `ressources_contenu` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -341,14 +340,14 @@ ALTER TABLE `commentaires`
 --
 ALTER TABLE `defis_utilisateurs`
     ADD CONSTRAINT `fk_defi_user_defi` FOREIGN KEY (`defi_id`) REFERENCES `defis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_defi_user_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_defi_user_user` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `idees`
 --
 ALTER TABLE `idees`
     ADD CONSTRAINT `fk_idees_etab` FOREIGN KEY (`etablissement_id`) REFERENCES `etablissements` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_idees_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_idees_user` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `materiel`
@@ -367,7 +366,7 @@ ALTER TABLE `parcours_choix`
 -- Contraintes pour la table `quiz`
 --
 ALTER TABLE `quiz`
-    ADD CONSTRAINT `fk_quiz_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT `fk_quiz_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `utilisateur` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `quiz_questions`
@@ -386,20 +385,20 @@ ALTER TABLE `quiz_reponses`
 --
 ALTER TABLE `reconditionnement`
     ADD CONSTRAINT `fk_recond_materiel` FOREIGN KEY (`materiel_id`) REFERENCES `materiel` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_recond_user` FOREIGN KEY (`utilisateur_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_recond_user` FOREIGN KEY (`utilisateur_id`) REFERENCES `utilisateur` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `ressources_contenu`
 --
 ALTER TABLE `ressources_contenu`
-    ADD CONSTRAINT `fk_ressource_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `users` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
+    ADD CONSTRAINT `fk_ressource_auteur` FOREIGN KEY (`auteur_id`) REFERENCES `utilisateur` (`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 --
 -- Contraintes pour la table `user_etablissement`
 --
 ALTER TABLE `user_etablissement`
     ADD CONSTRAINT `fk_user_etab_etab` FOREIGN KEY (`etablissement_id`) REFERENCES `etablissements` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `fk_user_etab_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `fk_user_etab_user` FOREIGN KEY (`user_id`) REFERENCES `utilisateur` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
