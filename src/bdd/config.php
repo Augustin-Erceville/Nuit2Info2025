@@ -15,4 +15,5 @@ class Bdd {
         return $this->bdd;
     }
 }
+
 ?>
