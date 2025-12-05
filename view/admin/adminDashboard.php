@@ -14,7 +14,7 @@ session_start();
 <body class="bg-dark">
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid position-relative">
-        <a class="navbar-brand d-flex align-items-center text-danger" href="../../user/accueil.php">
+        <a class="navbar-brand d-flex align-items-center text-danger" href="../user/accueil.php">
             <i class="bi bi-moon-stars fs-1 me-2"></i>
             <span class="fs-3 fw-bold">NUIT DE L'INFO - ADMINISTRATION</span>
         </a>
@@ -25,6 +25,18 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
+                <a href="commentaire/commentaireListe.php" class="btn btn-outline-danger btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Commentaires">
+                    <i class="bi bi-chat"></i>
+                </a>
+                <a href="defi/defiListe.php" class="btn btn-outline-danger btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Défis">
+                    <i class="bi bi-star"></i>
+                </a>
+                <a href="etablissement/etablissementListe.php" class="btn btn-outline-danger btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Etablissements">
+                    <i class="bi bi-building"></i>
+                </a>
                 <a href="idee/ideeListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Idées">
                     <i class="bi bi-lightbulb"></i>
@@ -32,6 +44,14 @@ session_start();
                 <a href="materiel/materielListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materiels">
                     <i class="bi bi-pc-display"></i>
+                </a>
+                <a href="quiz/quizListe.php" class="btn btn-outline-danger btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Quizs">
+                    <i class="bi bi-patch-question"></i>
+                </a>
+                <a href="resource/ressourceListe.php" class="btn btn-outline-danger btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ressources">
+                    <i class="bi bi-book"></i>
                 </a>
                 <a href="utilisateur/utilisateurListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Utilisateurs">
@@ -60,15 +80,45 @@ session_start();
             <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
                 <li class="nav-item mb-2">
+                    <a class="btn btn-outline-danger w-100" href="commentaire/commentaireListe.php">
+                        <i class="bi bi-chat"></i>
+                        Commentaires
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-danger w-100" href="defi/defiListe.php">
+                        <i class="bi bi-star"></i>
+                        Défis
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-danger w-100" href="etablissement/etablissementListe.php">
+                        <i class="bi bi-building"></i>
+                        Etablissements
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
                     <a class="btn btn-outline-danger w-100" href="idee/ideeListe.php">
-                        <i class="bi bi-pc-display"></i>
+                        <i class="bi bi-lightbulb"></i>
                         Idées
                     </a>
                 </li>
                 <li class="nav-item mb-2">
                     <a class="btn btn-outline-danger w-100" href="materiel/materielListe.php">
                         <i class="bi bi-pc-display"></i>
-                        Materiels
+                        Matériels
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-danger w-100" href="quiz/quizListe.php">
+                        <i class="bi bi-patch-question"></i>
+                        Quizs
+                    </a>
+                </li>
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-danger w-100" href="resource/ressourceListe.php">
+                        <i class="bi bi-book"></i>
+                        Ressources
                     </a>
                 </li>
                 <li class="nav-item mb-2">

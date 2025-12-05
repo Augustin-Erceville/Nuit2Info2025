@@ -25,6 +25,10 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
+                <a href="chatBot/viewChatBot.php" class="btn btn-outline-light btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tchat">
+                    <i class="bi bi-chat-text"></i>
+                </a>
                 <a href="moduleMateriel/moduleMaterielMain.php" class="btn btn-outline-light btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Matériels">
                     <i class="bi bi-pc-display"></i>
@@ -51,6 +55,12 @@ session_start();
             </div>
 <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-light w-100" href="chatBot/viewChatBot.php">
+                        <i class="bi bi-chat-text"></i>
+                        Tchat
+                    </a>
+                </li>
                 <li class="nav-item mb-2">
                     <a class="btn btn-outline-light w-100" href="moduleMateriel/moduleMaterielMain.php">
                         <i class="bi bi-pc-display"></i>

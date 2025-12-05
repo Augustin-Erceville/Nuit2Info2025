@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot - Nuit de l'Info</title>
-    <link rel="stylesheet" href="../style/css/styleChatBot.css">
+    <link rel="stylesheet" href="../../../src/style/css/styleChatBot.css">
 </head>
 <body>
 <!-- Header avec logo -->
