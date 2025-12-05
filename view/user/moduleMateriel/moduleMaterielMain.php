@@ -7,7 +7,8 @@ require_once '../../../src/repository/MaterielRepository.php';
 use repository\MaterielRepository;
 
 // Récupère la connexion PDO
-$bdd = getPDO();
+$database = new Bdd('localhost', 'nird_village', 'root', '');
+$bdd = $database->get1();
 
 $materielRepo = new MaterielRepository($bdd);
 $selectedType = isset($_GET['type']) ? $_GET['type'] : null;
@@ -119,6 +120,69 @@ if ($selectedType) {
         </div>
     </div>
     <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
+<!-- Section Résumé des Réservations -->
+<?php if (isset($_SESSION['reservations']) && !empty($_SESSION['reservations'])): ?>
+<section class="container my-4">
+    <div class="card bg-dark text-light border-primary">
+        <div class="card-header bg-primary d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">
+                <i class="bi bi-cart-check me-2"></i>Mes Réservations
+                <span class="badge bg-light text-dark ms-2"><?php echo count($_SESSION['reservations']); ?></span>
+            </h5>
+            <a href="viderReservations.php" class="btn btn-sm btn-outline-light">
+                <i class="bi bi-trash me-1"></i>Tout vider
+            </a>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-dark table-hover">
+                    <thead>
+                        <tr>
+                            <th>Matériel</th>
+                            <th>Type</th>
+                            <th class="text-center">Quantité</th>
+                            <th class="text-end">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php foreach ($_SESSION['reservations'] as $index => $reservation): ?>
+                        <tr>
+                            <td><?php echo htmlspecialchars($reservation['nom']); ?></td>
+                            <td>
+                                <span class="badge bg-secondary"><?php echo htmlspecialchars($reservation['type']); ?></span>
+                            </td>
+                            <td class="text-center">
+                                <span class="badge bg-info">×<?php echo $reservation['quantite']; ?></span>
+                            </td>
+                            <td class="text-end">
+                                <a href="supprimerReservation.php?index=<?php echo $index; ?>"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Supprimer cette réservation ?');">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-between align-items-center mt-3">
+                <p class="mb-0 text-muted">
+                    <i class="bi bi-info-circle me-1"></i>
+                    Total: <strong><?php
+                        $total = array_sum(array_column($_SESSION['reservations'], 'quantite'));
+                        echo $total;
+                    ?></strong> article<?php echo $total > 1 ? 's' : ''; ?>
+                </p>
+                <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#confirmerReservationsModal">
+                    <i class="bi bi-check-circle me-1"></i>Confirmer les réservations
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
 <?php endif; ?>
 
 <!-- Section des catégories -->
@@ -270,9 +334,19 @@ if ($selectedType) {
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top border-light">
-                                <button class="btn btn-outline-light btn-sm w-100">
-                                    <i class="bi bi-info-circle me-1"></i>Détails
-                                </button>
+                                <form method="POST" action="reserverMateriel.php" class="d-flex gap-2 align-items-center">
+                                    <input type="hidden" name="id_materiel" value="<?php echo $materiel['id']; ?>">
+                                    <input type="hidden" name="nom" value="<?php echo htmlspecialchars($materiel['nom']); ?>">
+                                    <input type="hidden" name="type" value="<?php echo htmlspecialchars($materiel['type']); ?>">
+                                    <input type="number" name="quantite" class="form-control form-control-sm bg-secondary text-light border-secondary"
+                                           min="1" max="<?php echo $materiel['quantite_disponible']; ?>"
+                                           value="1" style="width: 70px;"
+                                           <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+                                    <button type="submit" class="btn btn-primary btn-sm flex-grow-1"
+                                            <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+                                        <i class="bi bi-cart-plus me-1"></i>Réserver
+                                    </button>
+                                </form>
                             </div>
                         </div>
                     </article>
@@ -363,12 +437,99 @@ if ($selectedType) {
     </div>
 </div>
 
+<!-- Modal Confirmer les Réservations -->
+<div class="modal fade" id="confirmerReservationsModal" tabindex="-1" aria-labelledby="confirmerReservationsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="confirmerReservationsModalLabel">
+                    <i class="bi bi-check-circle me-2"></i>Confirmer vos réservations
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <?php if (isset($_SESSION['reservations']) && !empty($_SESSION['reservations'])): ?>
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle me-2"></i>
+                    Vous êtes sur le point de confirmer la réservation de <strong><?php echo count($_SESSION['reservations']); ?></strong> matériel(s).
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-dark table-striped">
+                        <thead>
+                            <tr>
+                                <th>Matériel</th>
+                                <th>Type</th>
+                                <th class="text-center">Quantité</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($_SESSION['reservations'] as $reservation): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($reservation['nom']); ?></td>
+                                <td>
+                                    <span class="badge bg-secondary"><?php echo htmlspecialchars($reservation['type']); ?></span>
+                                </td>
+                                <td class="text-center">
+                                    <span class="badge bg-info">×<?php echo $reservation['quantite']; ?></span>
+                                </td>
+                            </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
+
+                <form method="POST" action="confirmerReservations.php">
+                    <div class="mb-3">
+                        <label for="date_debut" class="form-label">Date de début *</label>
+                        <input type="date" class="form-control bg-secondary text-light border-secondary"
+                               id="date_debut" name="date_debut" required
+                               min="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="date_fin" class="form-label">Date de fin *</label>
+                        <input type="date" class="form-control bg-secondary text-light border-secondary"
+                               id="date_fin" name="date_fin" required
+                               min="<?php echo date('Y-m-d'); ?>">
+                    </div>
+                    <div class="mb-3">
+                        <label for="commentaire" class="form-label">Commentaire (optionnel)</label>
+                        <textarea class="form-control bg-secondary text-light border-secondary"
+                                  id="commentaire" name="commentaire" rows="3"
+                                  placeholder="Motif de la réservation, remarques..."></textarea>
+                    </div>
+                    <div class="modal-footer border-secondary px-0">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                            <i class="bi bi-x-circle me-1"></i>Annuler
+                        </button>
+                        <button type="submit" class="btn btn-success">
+                            <i class="bi bi-check-circle me-1"></i>Confirmer la réservation
+                        </button>
+                    </div>
+                </form>
+                <?php endif; ?>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
         tooltipTriggerList.map(function (tooltipTriggerEl) {
             return new bootstrap.Tooltip(tooltipTriggerEl);
         });
+
+        // Réinitialise le formulaire quand le modal est fermé
+        var ajouterMaterielModal = document.getElementById('ajouterMaterielModal');
+        if (ajouterMaterielModal) {
+            ajouterMaterielModal.addEventListener('hidden.bs.modal', function () {
+                var form = ajouterMaterielModal.querySelector('form');
+                if (form) {
+                    form.reset();
+                }
+            });
+        }
     });
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
