@@ -14,7 +14,7 @@ if ($_SERVER["REQUEST_METHOD"] !== "POST" || !isset($_POST['connexion'])) {
 try {
     // Connexion à la base de données
     $database = new Bdd('localhost', 'nird_village', 'root', '');
-    $bdd = $database->getBdd();
+    $bdd = $database->getPDO();
 } catch (PDOException $e) {
     $_SESSION['error'] = "Erreur de connexion à la base de données.";
     header('Location: ../../view/user/Connexion.php');

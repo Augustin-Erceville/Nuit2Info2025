@@ -7,7 +7,7 @@ session_start();
 
 try {
     $database = new Bdd('localhost', 'nird_village', 'root', '');
-    $bdd = $database->getBdd();
+    $bdd = $database->getPDO();
     $repo = new UtilisateurRepository($bdd);
 } catch (PDOException $e) {
     die("Erreur de connexion : " . $e->getMessage());
