@@ -11,7 +11,7 @@ class Bdd {
         }
     }
 
-    public function getBdd() {
+    public function getPDO() {
         return $this->bdd;
     }
 }
