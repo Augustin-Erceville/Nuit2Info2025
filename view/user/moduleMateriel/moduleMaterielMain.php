@@ -82,33 +82,59 @@ session_start();
     </div>
 </nav>
 <hr class="text-light">
-<section class="container">
+<section class="container my-3">
     <div class="row">
         <article class="col">
             <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
                 <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Ordianteur</h2>
+                <h2 class="text-center">Tour</h2>
             </a>
         </article>
         <article class="col">
-            <div class="card">
-                <img src="" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">Clavier</h2>
+            </a>
         </article>
         <article class="col">
-            <div class="card">
-                <img src="..." class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">Card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card’s content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
-                </div>
-            </div>
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="../" class="card-img-top" alt="...">
+                <h2 class="text-center">Souris</h2>
+            </a>
+        </article>
+        <article class="col">
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">Ecran</h2>
+            </a>
+        </article>
+    </div>
+</section>
+<section class="container my-3">
+    <div class="row">
+        <article class="col">
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">Webcam</h2>
+            </a>
+        </article>
+        <article class="col">
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">Cable</h2>
+            </a>
+        </article>
+        <article class="col">
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">PC Portable</h2>
+            </a>
+        </article>
+        <article class="col">
+            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
+                <img src="#" class="card-img-top" alt="...">
+                <h2 class="text-center">Enceinte</h2>
+            </a>
         </article>
     </div>
 </section>
