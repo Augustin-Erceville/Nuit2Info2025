@@ -3,10 +3,10 @@ session_start();
 require_once __DIR__ . '/../../../src/Bdd/config.php';
 
 // Vérification d'accès
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: ../../user/Connexion.php');
-    exit();
-}
+//if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+//    header('Location: ../../user/Connexion.php');
+//    exit();
+//}
 
 if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
     $_SESSION['error'] = "Utilisateur invalide.";
@@ -21,7 +21,7 @@ unset($_SESSION['error']);
 
 try {
     $database = new Bdd('localhost', 'nird_village', 'root', '');
-    $bdd = $database->getBdd();
+    $bdd = $database->getPDO();
 
     $stmt = $bdd->prepare('SELECT id, nom, prenom, email, role 
                            FROM utilisateur WHERE id = :id');

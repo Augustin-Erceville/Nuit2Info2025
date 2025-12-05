@@ -1,6 +1,7 @@
 <?php
 session_start();
 
+
 require_once '../../../src/bdd/config.php';
 require_once '../../../src/repository/MaterielRepository.php';
 
@@ -332,13 +333,29 @@ if ($selectedType) {
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top border-light">
-                                <form method="POST" action="reserverMateriel.php" class="d-flex gap-2 align-items-center">
+                                <form method="POST" action="/src/Traitement/reserverMateriel.php" class="d-flex gap-2 align-items-center flex-nowrap">
                                     <input type="hidden" name="id_materiel" value="<?php echo $materiel['id']; ?>">
+
                                     <input type="hidden" name="nom" value="<?php echo htmlspecialchars($materiel['nom']); ?>">
+
                                     <input type="hidden" name="type" value="<?php echo htmlspecialchars($materiel['type']); ?>">
 
+                                    <input type="number" name="quantite"
+                                           class="form-control form-control-sm bg-secondary text-light border-secondary"
+                                           min="1"
+                                           max="<?php echo $materiel['quantite_disponible']; ?>"
+                                           value="1"
+                                           style="width: 70px;"
+                                            <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+
+                                    <button type="submit"
+                                            class="btn btn-primary btn-sm flex-shrink-0"
+                                            <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+                                        <i class="bi bi-cart-plus me-1"></i>Réserver
+                                    </button>
                                 </form>
                             </div>
+
                         </div>
                     </article>
                 <?php endforeach; ?>

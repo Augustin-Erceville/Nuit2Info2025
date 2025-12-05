@@ -7,10 +7,10 @@ require_once __DIR__ . '/../../../src/repository/UtilisateurRepository.php';
 use repository\UtilisateurRepository;
 
 // Vérification d'accès (admin uniquement)
-if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
-    header('Location: ../../user/Connexion.php');
-    exit();
-}
+//if (!isset($_SESSION['user_role']) || $_SESSION['user_role'] !== 'admin') {
+//    header('Location: ../../user/Connexion.php');
+//    exit();
+//}
 
 // Messages flash
 $flashError = $_SESSION['error'] ?? '';
@@ -19,7 +19,7 @@ unset($_SESSION['error'], $_SESSION['success']);
 
 try {
     $database = new Bdd('localhost', 'nird_village', 'root', '');
-    $bdd = $database->getBdd();
+    $bdd = $database->getPDO();
 
     $repo = new UtilisateurRepository($bdd);
     $utilisateurs = $repo->findAll(); // retourne un tableau associatif
