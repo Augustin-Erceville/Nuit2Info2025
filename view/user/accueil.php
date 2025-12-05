@@ -5,7 +5,7 @@ session_start();
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Accueil - Portfolio</title>
+    <title>Accueil - Nuit 2 l'Info</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../src/styles.css" rel="stylesheet">
@@ -25,6 +25,10 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
+                <a href="chatBot/viewChatBot.php" class="btn btn-outline-light btn-lg me-2"
+                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Tchat">
+                    <i class="bi bi-chat-text"></i>
+                </a>
                 <a href="moduleMateriel/moduleMaterielMain.php" class="btn btn-outline-light btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Matériels">
                     <i class="bi bi-pc-display"></i>
@@ -37,12 +41,12 @@ session_start();
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
@@ -51,6 +55,12 @@ session_start();
             </div>
 <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
+                <li class="nav-item mb-2">
+                    <a class="btn btn-outline-light w-100" href="chatBot/viewChatBot.php">
+                        <i class="bi bi-chat-text"></i>
+                        Tchat
+                    </a>
+                </li>
                 <li class="nav-item mb-2">
                     <a class="btn btn-outline-light w-100" href="moduleMateriel/moduleMaterielMain.php">
                         <i class="bi bi-pc-display"></i>
@@ -66,12 +76,12 @@ session_start();
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="compteDropdown">
                         <li>
-                            <a class="dropdown-item" href="connexion.php">
+                            <a class="dropdown-item" href="Connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="inscription.php">
+                            <a class="dropdown-item" href="Inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>

@@ -22,11 +22,11 @@ foreach ($repositories as $repo) {
         $content = file_get_contents($filePath);
         $newContent = str_replace(
             [
-                "require_once __DIR__ . '/../bdd/Bdd.php';",
-                "require_once __DIR__ . '/../bdd/config.php';",
-                "require_once __DIR__ . '/../bdd/confi.php';"
+                "require_once __DIR__ . '/../Bdd/Bdd.php';",
+                "require_once __DIR__ . '/../Bdd/config.php';",
+                "require_once __DIR__ . '/../Bdd/confi.php';"
             ],
-            "require_once __DIR__ . '/../bdd/config.php';",
+            "require_once __DIR__ . '/../Bdd/config.php';",
             $content
         );
         

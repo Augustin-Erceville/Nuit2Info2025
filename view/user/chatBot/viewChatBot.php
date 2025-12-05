@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot - Nuit de l'Info</title>
-    <link rel="stylesheet" href="../style/css/styleChatBot.css">
+    <link rel="stylesheet" href="../../../src/style/css/styleChatBot.css">
 </head>
 <body>
 <!-- Header avec logo -->
@@ -42,7 +42,7 @@
             <div class="chat-header-content">
                 <div class="bot-avatar">🤖</div>
                 <div class="bot-info">
-                    <h2>Assistant Aléatoire</h2>
+                    <h2>Assistant a la pointe de la téchnologie</h2>
                     <span class="bot-status">
                             <span class="status-dot"></span>
                             En ligne
