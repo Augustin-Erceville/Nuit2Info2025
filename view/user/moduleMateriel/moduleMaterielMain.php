@@ -83,61 +83,118 @@ session_start();
 </nav>
 <hr class="text-light">
 <section class="container my-3">
-    <div class="row">
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Tour</h2>
+    <h2 class="text-center text-light my-3">Matériels</h2>
+    <div class="row g-3">
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/tour.png" class="img-fluid" alt="Tour">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Tour</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Clavier</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/clavier.png" class="img-fluid" alt="Clavier">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Clavier</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="../" class="card-img-top" alt="...">
-                <h2 class="text-center">Souris</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/souris.png" class="img-fluid" alt="Souris">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Souris</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Ecran</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/ecran.png" class="img-fluid" alt="Écran">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Ecran</h3>
+                </div>
             </a>
         </article>
     </div>
 </section>
+
 <section class="container my-3">
-    <div class="row">
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Webcam</h2>
+    <div class="row g-3">
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/webcam.png" class="img-fluid" alt="Webcam">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Webcam</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Cable</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/cable.png" class="img-fluid" alt="Câble">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Câble</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">PC Portable</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/portable.png" class="img-fluid" alt="PC Portable">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">PC Portable</h3>
+                </div>
             </a>
         </article>
-        <article class="col">
-            <a class="card bg-transparent text-light border-light" href="#" style="text-decoration: none">
-                <img src="#" class="card-img-top" alt="...">
-                <h2 class="text-center">Enceinte</h2>
+
+        <article class="col-12 col-sm-6 col-md-3">
+            <a href="#"
+               class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
+               style="min-height: 320px;">
+                <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
+                    <img src="../../../src/img/enceinte.png" class="img-fluid" alt="Enceinte">
+                </div>
+                <div class="card-footer bg-transparent border-0 text-center mt-auto">
+                    <h3 class="mb-0">Enceinte</h3>
+                </div>
             </a>
         </article>
     </div>
 </section>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
