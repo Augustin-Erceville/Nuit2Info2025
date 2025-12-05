@@ -1,8 +1,8 @@
 <?php
-define('DB_HOST', 'localhost:888');
+define('DB_HOST', 'localhost');
 define('DB_NAME', 'nird_village');
 define('DB_USER', 'root');
-define('DB_PASS', 'root');
+define('DB_PASS', '');
 define('DB_CHARSET', 'utf8mb4');
 
 function getPDO(): PDO

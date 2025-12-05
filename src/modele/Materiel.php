@@ -9,6 +9,18 @@ class Materiel
     private $quantite_totale;
     private $etat;
     private $date_ajout;
+
+    private $type;
+
+    public function getType(): string
+    {
+        return $this->type;
+    }
+
+    public function setType(string $type): void
+    {
+        $this->type = $type;
+    }
     private $id_etablissement;
 
     public function __construct(
@@ -18,6 +30,7 @@ class Materiel
         int $quantite_disponible = 0,
         int $quantite_totale = 0,
         string $etat = 'bon',
+        string $type = 'PC',
         ?string $date_ajout = null,
         ?int $id_etablissement = null
     ) {
@@ -27,6 +40,7 @@ class Materiel
         $this->quantite_disponible = $quantite_disponible;
         $this->quantite_totale = $quantite_totale;
         $this->etat = $etat;
+        $this->type = $type;
         $this->date_ajout = $date_ajout ?? date('Y-m-d H:i:s');
         $this->id_etablissement = $id_etablissement;
     }

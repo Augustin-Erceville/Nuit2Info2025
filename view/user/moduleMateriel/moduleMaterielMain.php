@@ -16,12 +16,6 @@ $materiels = [];
 if ($selectedType) {
     $materiels = $materielRepo->getByType($selectedType);
 }
-$selectedType = isset($_GET['type']) ? $_GET['type'] : null;
-$materiels = [];
-
-if ($selectedType) {
-    $materiels = $materielRepo->getByType($selectedType);
-}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -104,9 +98,37 @@ if ($selectedType) {
 </nav>
 <hr class="text-light">
 
+<!-- Messages de succès/erreur -->
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="container mt-3">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="bi bi-check-circle-fill me-2"></i>
+            <?php echo htmlspecialchars($_SESSION['success']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <?php unset($_SESSION['success']); ?>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="container mt-3">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i>
+            <?php echo htmlspecialchars($_SESSION['error']); ?>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+    </div>
+    <?php unset($_SESSION['error']); ?>
+<?php endif; ?>
+
 <!-- Section des catégories -->
 <section class="container my-3">
-    <h2 class="text-center text-light my-3">Matériels</h2>
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2 class="text-light mb-0">Matériels</h2>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ajouterMaterielModal">
+            <i class="bi bi-plus-circle me-2"></i>Ajouter un matériel
+        </button>
+    </div>
     <div class="row g-3">
         <article class="col-12 col-sm-6 col-md-3">
             <a href="?type=Tour"
@@ -259,6 +281,87 @@ if ($selectedType) {
         <?php endif; ?>
     </section>
 <?php endif; ?>
+
+<!-- Modal Ajouter Matériel -->
+<div class="modal fade" id="ajouterMaterielModal" tabindex="-1" aria-labelledby="ajouterMaterielModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content bg-dark text-light">
+            <div class="modal-header border-secondary">
+                <h5 class="modal-title" id="ajouterMaterielModalLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Ajouter un nouveau matériel
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <form method="POST" action="ajouterMateriel.php">
+                <div class="modal-body">
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label for="nom" class="form-label">Nom du matériel *</label>
+                            <input type="text" class="form-control bg-secondary text-light border-secondary"
+                                   id="nom" name="nom" required>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="type" class="form-label">Type *</label>
+                            <select class="form-select bg-secondary text-light border-secondary"
+                                    id="type" name="type" required>
+                                <option value="">-- Choisir un type --</option>
+                                <option value="Tour">Tour</option>
+                                <option value="Clavier">Clavier</option>
+                                <option value="Souris">Souris</option>
+                                <option value="Ecran">Écran</option>
+                                <option value="Webcam">Webcam</option>
+                                <option value="Câble">Câble</option>
+                                <option value="PCPortable">PC Portable</option>
+                                <option value="Enceinte">Enceinte</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <label for="description" class="form-label">Description</label>
+                            <textarea class="form-control bg-secondary text-light border-secondary"
+                                      id="description" name="description" rows="3"></textarea>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="quantite_disponible" class="form-label">Quantité disponible *</label>
+                            <input type="number" class="form-control bg-secondary text-light border-secondary"
+                                   id="quantite_disponible" name="quantite_disponible" min="0" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="quantite_totale" class="form-label">Quantité totale *</label>
+                            <input type="number" class="form-control bg-secondary text-light border-secondary"
+                                   id="quantite_totale" name="quantite_totale" min="1" required>
+                        </div>
+
+                        <div class="col-md-4">
+                            <label for="etat" class="form-label">État *</label>
+                            <select class="form-select bg-secondary text-light border-secondary"
+                                    id="etat" name="etat" required>
+                                <option value="bon">Bon</option>
+                                <option value="correct">Correct</option>
+                                <option value="mauvais">Mauvais</option>
+                            </select>
+                        </div>
+
+                        <div class="col-12">
+                            <input type="hidden" name="id_etablissement" value="1">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer border-secondary">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i>Annuler
+                    </button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-check-circle me-1"></i>Ajouter
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {

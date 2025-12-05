@@ -20,17 +20,18 @@ class MaterielRepository
     {
         try {
             $query = "INSERT INTO materiel (
-                        nom, description, quantite_disponible, quantite_totale, 
-                        etat, id_etablissement
-                     ) VALUES (
-                        :nom, :description, :quantite_disponible, :quantite_totale, 
-                        :etat, :id_etablissement
-                     )";
+                    nom, description, type, quantite_disponible, quantite_totale, 
+                    etat, id_etablissement
+                 ) VALUES (
+                    :nom, :description, :type, :quantite_disponible, :quantite_totale, 
+                    :etat, :id_etablissement
+                 )";
 
             $stmt = $this->bdd->prepare($query);
             $stmt->execute([
                 'nom' => $materiel->getNom(),
                 'description' => $materiel->getDescription(),
+                'type' => $materiel->getType(),
                 'quantite_disponible' => $materiel->getQuantiteDisponible(),
                 'quantite_totale' => $materiel->getQuantiteTotale(),
                 'etat' => $materiel->getEtat(),
