@@ -332,13 +332,30 @@ if ($selectedType) {
                                 </p>
                             </div>
                             <div class="card-footer bg-transparent border-top border-light">
-                                <form method="POST" action="reserverMateriel.php" class="d-flex gap-2 align-items-center">
+                                <form method="POST" action="../../../view/user/moduleMateriel/reserverMateriel.php" class="d-flex gap-2 align-items-center flex-nowrap">
                                     <input type="hidden" name="id_materiel" value="<?php echo $materiel['id']; ?>">
                                     <input type="hidden" name="nom" value="<?php echo htmlspecialchars($materiel['nom']); ?>">
                                     <input type="hidden" name="type" value="<?php echo htmlspecialchars($materiel['type']); ?>">
 
+                                    <!-- Champ quantité -->
+                                    <input type="number" name="quantite"
+                                           class="form-control form-control-sm bg-secondary text-light border-secondary"
+                                           min="1"
+                                           max="<?php echo $materiel['quantite_disponible']; ?>"
+                                           value="1"
+                                           style="width: 70px;"
+                                            <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+
+                                    <!-- Bouton -->
+                                    <button type="submit"
+                                            class="btn btn-primary btn-sm flex-shrink-0"
+                                            style="white-space: nowrap;"
+                                            <?php echo $materiel['quantite_disponible'] == 0 ? 'disabled' : ''; ?>>
+                                        <i class="bi bi-cart-plus me-1"></i>Réserver
+                                    </button>
                                 </form>
                             </div>
+
                         </div>
                     </article>
                 <?php endforeach; ?>
