@@ -1,32 +1,18 @@
 <?php
-define('DB_HOST', 'localhost:888');
-define('DB_NAME', 'nird_village');
-define('DB_USER', 'root');
-define('DB_PASS', 'root');
-define('DB_CHARSET', 'utf8mb4');
+class Bdd {
+    private $bdd;
 
-function getPDO(): PDO
-{
-    static $pdo = null;
-
-    if ($pdo === null) {
-        $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=' . DB_CHARSET;
-
+    public function __construct($host = 'localhost', $dbname = 'nird_village', $username = 'root', $password = '') {
         try {
-            $pdo = new PDO(
-                $dsn,
-                DB_USER,
-                DB_PASS,
-                [
-                    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-                    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                    PDO::ATTR_EMULATE_PREPARES   => false,
-                ]
-            );
+            $this->bdd = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8", $username, $password);
+            $this->bdd->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {
-            die('Erreur de connexion à la base de données : ' . $e->getMessage());
+            die("Erreur de connexion : " . $e->getMessage());
         }
     }
 
-    return $pdo;
+    public function getBdd() {
+        return $this->bdd;
+    }
 }
+?>
