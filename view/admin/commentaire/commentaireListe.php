@@ -25,7 +25,7 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
-                <a href="../commentaire/commentaireListe.php" class="btn btn-outline-danger btn-lg me-2"
+                <a href="../commentaire/commentaireListe.php" class="btn btn-outline-danger active btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Commentaires">
                     <i class="bi bi-chat"></i>
                 </a>
@@ -53,7 +53,7 @@ session_start();
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ressources">
                     <i class="bi bi-book"></i>
                 </a>
-                <a href="../utilisateur/utilisateurListe.php" class="btn btn-outline-danger active btn-lg me-2"
+                <a href="../utilisateur/utilisateurListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Utilisateurs">
                     <i class="bi bi-person"></i>
                 </a>
@@ -80,7 +80,7 @@ session_start();
             <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../commentaire/commentaireListe.php">
+                    <a class="btn btn-outline-danger active w-100" href="../commentaire/commentaireListe.php">
                         <i class="bi bi-chat"></i>
                         Commentaires
                     </a>
@@ -122,7 +122,7 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger active w-100" href="../utilisateur/utilisateurListe.php">
+                    <a class="btn btn-outline-danger w-100" href="../utilisateur/utilisateurListe.php">
                         <i class="bi bi-person"></i>
                         Utilisateurs
                     </a>

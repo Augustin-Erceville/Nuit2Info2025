@@ -29,7 +29,7 @@ session_start();
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Commentaires">
                     <i class="bi bi-chat"></i>
                 </a>
-                <a href="../defi/defiListe.php" class="btn btn-outline-danger btn-lg me-2"
+                <a href="../defi/defiListe.php" class="btn btn-outline-danger active btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Défis">
                     <i class="bi bi-star"></i>
                 </a>
@@ -53,7 +53,7 @@ session_start();
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ressources">
                     <i class="bi bi-book"></i>
                 </a>
-                <a href="../utilisateur/utilisateurListe.php" class="btn btn-outline-danger active btn-lg me-2"
+                <a href="../utilisateur/utilisateurListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Utilisateurs">
                     <i class="bi bi-person"></i>
                 </a>
@@ -86,7 +86,7 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../defi/defiListe.php">
+                    <a class="btn btn-outline-danger active w-100" href="../defi/defiListe.php">
                         <i class="bi bi-star"></i>
                         Défis
                     </a>
@@ -122,7 +122,7 @@ session_start();
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger active w-100" href="../utilisateur/utilisateurListe.php">
+                    <a class="btn btn-outline-danger w-100" href="../utilisateur/utilisateurListe.php">
                         <i class="bi bi-person"></i>
                         Utilisateurs
                     </a>
