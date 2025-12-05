@@ -71,7 +71,7 @@ CREATE TABLE `etablissements` (
 
 -- =====================================================================
 -- Table `materiel`
--- Modèle : Materiel.php
+-- Modèle : materiel.php
 -- =====================================================================
 
 CREATE TABLE `materiel` (

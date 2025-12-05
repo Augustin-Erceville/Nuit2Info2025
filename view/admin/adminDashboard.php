@@ -25,35 +25,15 @@ session_start();
         </button>
         <div class="collapse navbar-collapse" id="mainNavbar">
             <div class="ms-auto d-none d-lg-flex align-items-center">
-                <a href="../commentaire/commentaireListe.php" class="btn btn-outline-danger btn-lg me-2"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Commentaires">
-                    <i class="bi bi-chat"></i>
-                </a>
-                <a href="../defi/defiListe.php" class="btn btn-outline-danger btn-lg me-2"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Défis">
-                    <i class="bi bi-star"></i>
-                </a>
-                <a href="../etablissement/etablissementListe.php" class="btn btn-outline-danger btn-lg me-2"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Etablissements">
-                    <i class="bi bi-building"></i>
-                </a>
-                <a href="../idee/ideeListe.php" class="btn btn-outline-danger btn-lg me-2"
+                <a href="idee/ideeListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Idées">
                     <i class="bi bi-lightbulb"></i>
                 </a>
-                <a href="../materiel/materielListe.php" class="btn btn-outline-danger btn-lg me-2"
+                <a href="materiel/materielListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Materiels">
                     <i class="bi bi-pc-display"></i>
                 </a>
-                <a href="../quiz/quizListe.php" class="btn btn-outline-danger btn-lg me-2"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Quizs">
-                    <i class="bi bi-patch-question"></i>
-                </a>
-                <a href="../resource/ressourceListe.php" class="btn btn-outline-danger btn-lg me-2"
-                   data-bs-toggle="tooltip" data-bs-placement="bottom" title="Ressources">
-                    <i class="bi bi-book"></i>
-                </a>
-                <a href="../utilisateur/utilisateurListe.php" class="btn btn-outline-danger active btn-lg me-2"
+                <a href="utilisateur/utilisateurListe.php" class="btn btn-outline-danger btn-lg me-2"
                    data-bs-toggle="tooltip" data-bs-placement="bottom" title="Utilisateurs">
                     <i class="bi bi-person"></i>
                 </a>
@@ -65,12 +45,12 @@ session_start();
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li>
-                            <a class="dropdown-item" href="../../user/connexion.php">
+                            <a class="dropdown-item" href="../user/connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="../../user/inscription.php">
+                            <a class="dropdown-item" href="../user/inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
@@ -80,49 +60,19 @@ session_start();
             <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../commentaire/commentaireListe.php">
-                        <i class="bi bi-chat"></i>
-                        Commentaires
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../defi/defiListe.php">
-                        <i class="bi bi-star"></i>
-                        Défis
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../etablissement/etablissementListe.php">
-                        <i class="bi bi-building"></i>
-                        Etablissements
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../idee/ideeListe.php">
-                        <i class="bi bi-lightbulb"></i>
+                    <a class="btn btn-outline-danger w-100" href="idee/ideeListe.php">
+                        <i class="bi bi-pc-display"></i>
                         Idées
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../materiel/materielListe.php">
+                    <a class="btn btn-outline-danger w-100" href="materiel/materielListe.php">
                         <i class="bi bi-pc-display"></i>
-                        Matériels
+                        Materiels
                     </a>
                 </li>
                 <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../quiz/quizListe.php">
-                        <i class="bi bi-patch-question"></i>
-                        Quizs
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger w-100" href="../resource/ressourceListe.php">
-                        <i class="bi bi-book"></i>
-                        Ressources
-                    </a>
-                </li>
-                <li class="nav-item mb-2">
-                    <a class="btn btn-outline-danger active w-100" href="../utilisateur/utilisateurListe.php">
+                    <a class="btn btn-outline-danger w-100" href="utilisateur/utilisateurListe.php">
                         <i class="bi bi-person"></i>
                         Utilisateurs
                     </a>
@@ -136,12 +86,12 @@ session_start();
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark w-100" aria-labelledby="compteDropdown">
                         <li>
-                            <a class="dropdown-item" href="../../user/connexion.php">
+                            <a class="dropdown-item" href="../user/connexion.php">
                                 <i class="bi bi-person-check-fill me-2"></i>Connexion
                             </a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="../../user/inscription.php">
+                            <a class="dropdown-item" href="../user/inscription.php">
                                 <i class="bi bi-person-plus-fill me-2"></i>Inscription
                             </a>
                         </li>
