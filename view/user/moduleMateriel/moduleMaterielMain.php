@@ -1,5 +1,27 @@
 <?php
 session_start();
+
+require_once '../../../src/bdd/config.php';
+require_once '../../../src/repository/MaterielRepository.php';
+
+use repository\MaterielRepository;
+
+// Récupère la connexion PDO
+$bdd = getPDO();
+
+$materielRepo = new MaterielRepository($bdd);
+$selectedType = isset($_GET['type']) ? $_GET['type'] : null;
+$materiels = [];
+
+if ($selectedType) {
+    $materiels = $materielRepo->getByType($selectedType);
+}
+$selectedType = isset($_GET['type']) ? $_GET['type'] : null;
+$materiels = [];
+
+if ($selectedType) {
+    $materiels = $materielRepo->getByType($selectedType);
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -49,7 +71,6 @@ session_start();
                     </ul>
                 </div>
             </div>
-            <!--          Mobile menu          -->
             <ul class="navbar-nav ms-auto d-lg-none mt-3 w-100">
                 <li class="nav-item mb-2">
                     <a class="btn btn-outline-light active w-100" href="moduleMaterielMain.php">
@@ -82,11 +103,13 @@ session_start();
     </div>
 </nav>
 <hr class="text-light">
+
+<!-- Section des catégories -->
 <section class="container my-3">
     <h2 class="text-center text-light my-3">Matériels</h2>
     <div class="row g-3">
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Tour"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -99,7 +122,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Clavier"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -112,7 +135,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Souris"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -125,7 +148,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Ecran"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -142,7 +165,7 @@ session_start();
 <section class="container my-3">
     <div class="row g-3">
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Webcam"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -155,7 +178,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Câble"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -168,7 +191,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=PCPortable"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -181,7 +204,7 @@ session_start();
         </article>
 
         <article class="col-12 col-sm-6 col-md-3">
-            <a href="#"
+            <a href="?type=Enceinte"
                class="card bg-transparent text-light border-light text-decoration-none h-100 d-flex flex-column"
                style="min-height: 320px;">
                 <div class="card-body d-flex align-items-center justify-content-center flex-grow-1">
@@ -195,6 +218,47 @@ session_start();
     </div>
 </section>
 
+<!-- Section d'affichage des matériels filtrés -->
+<?php if ($selectedType): ?>
+    <section class="container my-5">
+        <hr class="text-light mb-4">
+        <h3 class="text-center text-light mb-4">Matériels disponibles : <?php echo htmlspecialchars($selectedType); ?></h3>
+
+        <?php if (empty($materiels)): ?>
+            <div class="alert alert-info text-center" role="alert">
+                Aucun matériel trouvé pour cette catégorie.
+            </div>
+        <?php else: ?>
+            <div class="row g-3">
+                <?php foreach ($materiels as $materiel): ?>
+                    <article class="col-12 col-sm-6 col-md-4 col-lg-3">
+                        <div class="card bg-dark text-light border-light h-100">
+                            <div class="card-body">
+                                <h5 class="card-title"><?php echo htmlspecialchars($materiel['nom']); ?></h5>
+                                <p class="card-text">
+                                    <small class="text-muted">Type: <?php echo htmlspecialchars($materiel['type']); ?></small>
+                                </p>
+                                <p class="card-text"><?php echo htmlspecialchars($materiel['description']); ?></p>
+                                <p class="card-text">
+                                    <span class="badge bg-success">Disponible: <?php echo $materiel['quantite_disponible']; ?></span>
+                                    <span class="badge bg-secondary">Total: <?php echo $materiel['quantite_totale']; ?></span>
+                                </p>
+                                <p class="card-text">
+                                    <span class="badge bg-info">État: <?php echo htmlspecialchars($materiel['etat']); ?></span>
+                                </p>
+                            </div>
+                            <div class="card-footer bg-transparent border-top border-light">
+                                <button class="btn btn-outline-light btn-sm w-100">
+                                    <i class="bi bi-info-circle me-1"></i>Détails
+                                </button>
+                            </div>
+                        </div>
+                    </article>
+                <?php endforeach; ?>
+            </div>
+        <?php endif; ?>
+    </section>
+<?php endif; ?>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
