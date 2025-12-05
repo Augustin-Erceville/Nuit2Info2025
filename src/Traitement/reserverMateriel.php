@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Vérifie que la requête est bien en POST
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     $_SESSION['error'] = 'Requête invalide.';
     header('Location: moduleMaterielMain.php');
     exit();
 }
 
-// Validation des données requises
+
 $required_fields = ['id_materiel', 'nom', 'type', 'quantite'];
 foreach ($required_fields as $field) {
     if (!isset($_POST[$field]) || trim($_POST[$field]) === '') {
@@ -18,20 +18,19 @@ foreach ($required_fields as $field) {
     }
 }
 
-// Récupération et validation des données
 $id_materiel = (int)$_POST['id_materiel'];
 $nom = trim($_POST['nom']);
 $type = trim($_POST['type']);
 $quantite = (int)$_POST['quantite'];
 
-// Validation de la quantité
+
 if ($quantite < 1) {
     $_SESSION['error'] = 'La quantité doit être au moins 1.';
     header('Location: moduleMaterielMain.php?type=' . urlencode($type));
     exit();
 }
 
-// Initialise le panier de réservations s'il n'existe pas
+
 if (!isset($_SESSION['reservations'])) {
     $_SESSION['reservations'] = [];
 }
