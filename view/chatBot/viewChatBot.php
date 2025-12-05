@@ -42,7 +42,7 @@
             <div class="chat-header-content">
                 <div class="bot-avatar">🤖</div>
                 <div class="bot-info">
-                    <h2>Assistant Aléatoire</h2>
+                    <h2>Assistant a la pointe de la téchnologie</h2>
                     <span class="bot-status">
                             <span class="status-dot"></span>
                             En ligne
