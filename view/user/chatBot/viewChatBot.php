@@ -15,7 +15,7 @@
             <h1>NUIT DE L'INFO</h1>
         </div>
         <nav class="header-nav">
-            <a href="/Nuit2Info2025/index.php" class="nav-link">Accueil</a>
+            <a href="/view/user/accueil.php" class="nav-link">Accueil</a>
             <a href="#" class="nav-link active">Chatbot</a>
         </nav>
     </div>
@@ -42,7 +42,7 @@
             <div class="chat-header-content">
                 <div class="bot-avatar">🤖</div>
                 <div class="bot-info">
-                    <h2>Assistant a la pointe de la téchnologie</h2>
+                    <h2>Assistant Aléatoire</h2>
                     <span class="bot-status">
                             <span class="status-dot"></span>
                             En ligne
@@ -74,10 +74,10 @@
         <div class="chat-input-container">
             <div class="input-wrapper">
                 <input
-                    type="text"
-                    id="messageInput"
-                    placeholder="Écrivez votre message..."
-                    autocomplete="off"
+                        type="text"
+                        id="messageInput"
+                        placeholder="Écrivez votre message..."
+                        autocomplete="off"
                 >
                 <button id="sendButton" class="send-button">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -136,7 +136,7 @@
         showTypingIndicator();
 
         try {
-            const response = await fetch('/Nuit2Info2025/src/treatment/treatmentChat/treatmentChatBot.php', {
+            const response = await fetch('treatmentChatBot.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
